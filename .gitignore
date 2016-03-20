@@ -30,3 +30,4 @@
 # IDE exceptions
 .idea
 build/
+lib/
