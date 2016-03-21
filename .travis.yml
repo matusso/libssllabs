@@ -1,7 +1,7 @@
 language: cpp
-dist: vivid
+dist: trusty
 compiler: clang
-sudo: true
+sudo: required
 os:
 - linux
 
