@@ -26,7 +26,10 @@ public:
 
     int analyze(const std::string domain);
     int getRootCertsRaw(const std::string &certs);
+
     int getInfo(const std::string &info);
+    int getInfo(const labsInfo_t &info);
+
     int getStatusCodes(const std::string &codes);
 
 protected:

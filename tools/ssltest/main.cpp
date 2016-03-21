@@ -7,15 +7,9 @@
 
 int main() {
     SSLlabs sl;
-    std::string certs;
-    std::string info;
-    std::string codes;
+    labs_info_t inf;
 
-    sl.getRootCertsRaw(certs);
-    sl.getInfo(info);
-    sl.getStatusCodes(codes);
-
-    std::cout << codes << std::endl;
+    sl.getInfo(inf);
 
     return 0;
 }
