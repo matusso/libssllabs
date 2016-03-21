@@ -9,12 +9,13 @@ int main() {
     SSLlabs sl;
     std::string certs;
     std::string info;
+    std::string codes;
 
     sl.getRootCertsRaw(certs);
-    sl.getInfoRaw(info);
+    sl.getInfo(info);
+    sl.getStatusCodes(codes);
 
-    std::cout << certs << std::endl;
-    std::cout << info << std::endl;
+    std::cout << codes << std::endl;
 
     return 0;
 }

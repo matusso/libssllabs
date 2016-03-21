@@ -10,5 +10,5 @@ set(LIBS ${LIBS} curl)
 
 add_executable(ssltest ${SOURCE_FILES})
 add_library(ssllabs STATIC IMPORTED)
-set_target_properties(ssllabs PROPERTIES IMPORTED_LOCATION ../lib/libssllabs.a)
+set_target_properties(ssllabs PROPERTIES IMPORTED_LOCATION ../lib/src/libssllabs.a)
 target_link_libraries(ssltest ssllabs ${LIBS})

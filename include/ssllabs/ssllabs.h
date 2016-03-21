@@ -8,18 +8,29 @@
 #define SSLLABS_API_URL "https://api.ssllabs.com/api/v2"
 #define SSLLABS_AGENT   "libssllabs/1.0"
 
+typedef struct labsInfo {
+    std::string EngineVersion;
+    std::string CriteriaVersion;
+    int MaxAssessments;
+    int CurrentAssessments;
+    long NewAssessmentCoolOff;
+    std::string Messages;
+} labsInfo_t;
+
 class SSLlabs {
 public:
     SSLlabs();
     ~SSLlabs();
 
+    long timeout;
+
     int analyze(const std::string domain);
     int getRootCertsRaw(const std::string &certs);
-    int getInfoRaw(const std::string &info);
-    int getStatusCodesRaw(const std::string &codes);
+    int getInfo(const std::string &info);
+    int getStatusCodes(const std::string &codes);
 
 protected:
-    int curl_read(const std::string &url, const std::string &data, long timeout = 30);
+    int curl_read(const std::string &url, const std::string &data);
 
 private:
 };

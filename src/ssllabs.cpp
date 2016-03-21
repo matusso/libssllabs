@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <curl/curl.h>
-#include "ssllabs/ssllabs.h"
+#include "../include/ssllabs/ssllabs.h"
 
 static size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up) {
     size_t realsize = size * nmemb;
@@ -16,6 +16,7 @@ static size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up) {
 }
 
 SSLlabs::SSLlabs() {
+    timeout = 30; // * default timeout set to 30 seconds
     curl_global_init(CURL_GLOBAL_ALL);
 }
 
@@ -46,7 +47,7 @@ int SSLlabs::getRootCertsRaw(const std::string &certs) {
     return 0;
 }
 
-int SSLlabs::getInfoRaw(const std::string &info) {
+int SSLlabs::getInfo(const std::string &info) {
     std::string url(SSLLABS_API_URL);
 
     url += "/info";
@@ -55,7 +56,7 @@ int SSLlabs::getInfoRaw(const std::string &info) {
     return 0;
 }
 
-int SSLlabs::getStatusCodesRaw(const std::string &codes) {
+int SSLlabs::getStatusCodes(const std::string &codes) {
     std::string url(SSLLABS_API_URL);
 
     url += "/getStatusCodes";
@@ -64,7 +65,7 @@ int SSLlabs::getStatusCodesRaw(const std::string &codes) {
     return 0;
 }
 
-int SSLlabs::curl_read(const std::string &url, const std::string &data, long timeout) {
+int SSLlabs::curl_read(const std::string &url, const std::string &data) {
     CURLcode code(CURLE_FAILED_INIT);
     CURL * curl = curl_easy_init();
 
