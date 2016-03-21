@@ -1,0 +1,20 @@
+language: cpp
+dist: trusty
+compiler: clang
+os:
+- linux
+
+before_install:
+- echo $LANG
+- echo $LC_ALL
+
+branches:
+  only:
+  - master
+
+notifications:
+  email: true
+
+env:
+  global:
+  - LANG="en_US.UTF-8"
