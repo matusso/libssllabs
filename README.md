@@ -1,4 +1,7 @@
 # libssllabs
+[![Build Status](https://travis-ci.org/matusso/libssllabs.svg?branch=master)](https://travis-ci.org/matusso/libssllabs) 
+<br><br>
+
 C++ library to work with SSL<br>
 Qualys SSL Labs: https://www.ssllabs.com/
 
