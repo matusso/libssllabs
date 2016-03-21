@@ -7,13 +7,18 @@ os:
 before_install:
 - echo $LANG
 - echo $LC_ALL
+- sudo apt-get -qq update
+- sudo apt-get install -y cmake libcurl4-openssl-dev rapidjson-dev
+
+install:
+- cmake . && make
 
 branches:
   only:
   - master
 
 notifications:
-  email: true
+  email: false
 
 env:
   global:
