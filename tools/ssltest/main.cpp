@@ -3,8 +3,11 @@
 //
 
 #include <iostream>
+#include <ssllabs/ssllabs.h>
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    SSLlabs sl;
+
+    sl.analyze("burso.eu");
     return 0;
 }
