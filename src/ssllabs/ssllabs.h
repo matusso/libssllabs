@@ -10,13 +10,16 @@
 
 class SSLlabs {
 public:
-    SSLlabs() {};
-    ~SSLlabs() {};
+    SSLlabs();
+    ~SSLlabs();
 
-    int analyze(const std::string &domain);
+    int analyze(const std::string domain);
+    int getRootCertsRaw(const std::string &certs);
+    int getInfoRaw(const std::string &info);
+    int getStatusCodesRaw(const std::string &codes);
 
 protected:
-    int curl_read(const std::string &url, std::string &data, long timeout = 30);
+    int curl_read(const std::string &url, const std::string &data, long timeout = 30);
 
 private:
 };

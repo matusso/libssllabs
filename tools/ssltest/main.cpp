@@ -7,7 +7,14 @@
 
 int main() {
     SSLlabs sl;
+    std::string certs;
+    std::string info;
 
-    sl.analyze("burso.eu");
+    sl.getRootCertsRaw(certs);
+    sl.getInfoRaw(info);
+
+    std::cout << certs << std::endl;
+    std::cout << info << std::endl;
+
     return 0;
 }
