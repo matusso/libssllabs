@@ -36,5 +36,5 @@ addons:
     branch_pattern: coverity_scan
 
 script:
-- cmake
+- cmake .
 - make -j 4
