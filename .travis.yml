@@ -1,5 +1,5 @@
 language: cpp
-dist: trusty
+dist: vivid
 compiler: clang
 sudo: true
 os:
@@ -34,3 +34,7 @@ addons:
     build_command_prepend: "cmake ."
     build_command:   "make -j 4"
     branch_pattern: coverity_scan
+
+script:
+- cmake
+- make -j 4
