@@ -1,6 +1,7 @@
 language: cpp
 dist: trusty
 compiler: clang
+sudo: true
 os:
 - linux
 
@@ -10,8 +11,7 @@ before_install:
 - sudo apt-get -qq update
 - sudo apt-get install -y cmake libcurl4-openssl-dev rapidjson-dev
 
-install:
-- cmake . && make
+install: true
 
 branches:
   only:
@@ -23,3 +23,14 @@ notifications:
 env:
   global:
   - LANG="en_US.UTF-8"
+  - secure: "ZTnpSsBUj3Nzqkt+Mq4aokKjO6BvDWLE5/xL9HWy5wcDHvDUxXP6pZrYM4ahYmFBOUq9gZycswHCC8WE3+HJBOsOGIq7hmdt5dR/TBim9q5QC1ogZmn+22nBrJDabQ2vVsGznVdPfQk/wySvkZ3HPeKif5O4esDSg/3P5pzE0U0Ub3E/HMon6Bl3UYvoIXHT0fGjeuDvaehRy+BKy8qz3NyJlAreiCNKB8ItOVqs+CIxsuFttIAv4s+n1XHKAdYpvXVe1dtSgKayYtbg+K0Fqi95v36QWFMH+Ap00b2kphHeZt6f1AwGzz4J8vqjRk1NPqvQ95TgOZ6rnTr7ZdEW/rV5TbU3e7zm9qn/XVZFwhHlgrqr9pK0D2ARzsQWtQCM/eMqgtXf4BESxlODRjOEdVtjdlMKlwlFFembLmLCfMJCUKMwj7Hyd1tSt/4mFzIxZzzeHXpZJniJvbKxKzjY2Ik4K/OIocQ9QiD8JsejrxCbTJ2hBIIIhNtudYpj+ZDkw56VPrdLjAQLHYf0KADLF66hYMW9nmtdHJFUJ8e0efafuTAEBcTjRffoLux2094IFXo4eq8UfP37vRY3DE4Rc1yL6raGIv4KdGoYOtxdWOvDygMgEhsjIrPhb74TZJ/vP5D0Vjoe2egEhdHBXK7F7+xfp5lImN27UWqJGGiYj9E="
+
+addons:
+  coverity_scan:
+    project:
+      name: "matusso/libssllabs"
+      description: "Build submitted via Travis CI"
+    notification_email: burso@burso.eu
+    build_command_prepend: "cmake ."
+    build_command:   "make -j 4"
+    branch_pattern: coverity_scan
