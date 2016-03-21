@@ -8,13 +8,15 @@
 #define SSLLABS_API_URL "https://api.ssllabs.com/api/v2"
 #define SSLLABS_AGENT   "libssllabs/1.0"
 
+#include <vector>
+
 typedef struct labsInfo {
     std::string EngineVersion;
     std::string CriteriaVersion;
     int MaxAssessments;
     int CurrentAssessments;
     long NewAssessmentCoolOff;
-    std::string Messages;
+    std::vector<std::string> Messages;
 } labsInfo_t;
 
 class SSLlabs {
@@ -28,7 +30,7 @@ public:
     int getRootCertsRaw(const std::string &certs);
 
     int getInfo(const std::string &info);
-    int getInfo(const labsInfo_t &info);
+    int getInfo(labsInfo_t &info);
 
     int getStatusCodes(const std::string &codes);
 

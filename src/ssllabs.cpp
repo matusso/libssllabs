@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <curl/curl.h>
-#include "../include/rapidjson/document.h"
 #include "../include/ssllabs/ssllabs.h"
 
 static size_t writeCallback(char* buf, size_t size, size_t nmemb, void* up) {
@@ -44,32 +43,6 @@ int SSLlabs::getRootCertsRaw(const std::string &certs) {
 
     url += "/getRootCertsRaw";
     curl_read(url, certs);
-
-    return 0;
-}
-
-int SSLlabs::getInfo(const std::string &info) {
-    std::string url(SSLLABS_API_URL);
-
-    url += "/info";
-    curl_read(url, info);
-
-    return 0;
-}
-
-int SSLlabs::getInfo(const labsInfo_t &info) {
-    std::string url(SSLLABS_API_URL);
-    std::string data = {};
-    rapidjson::Document document;
-
-    url += "/info";
-    curl_read(url, data);
-
-    if (document.Parse<0>(data.c_str()).HasParseError()) {
-        std::cerr << "could not parse json document\n";
-        return -1;
-    }
-
 
     return 0;
 }

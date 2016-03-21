@@ -7,9 +7,12 @@
 
 int main() {
     SSLlabs sl;
-    labs_info_t inf;
+    labsInfo_t inf;
 
     sl.getInfo(inf);
+
+    std::cout << "EngineVersion: " << inf.EngineVersion << std::endl;
+    std::cout << "CriteriaVersion: " << inf.CriteriaVersion << std::endl;
 
     return 0;
 }
