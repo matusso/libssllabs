@@ -33,7 +33,7 @@ addons:
     notification_email: burso@burso.eu
     build_command_prepend: "cmake ."
     build_command:   "make -j 4"
-    branch_pattern: coverity_scan
+    branch_pattern: master
 
 script:
 - cmake .
