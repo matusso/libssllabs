@@ -9,7 +9,12 @@ set_target_properties(ssllabs-shared PROPERTIES OUTPUT_NAME ssllabs CLEAN_DIRECT
 target_link_libraries(ssllabs-shared ${LIBS})
 if (WIN32)
 	message(STATUS "Installing Windows library")
-	install(TARGETS ssllabs-shared LIBRARY DESTINATION ssllabs)
+	install(
+		TARGETS ssllabs-shared 
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+		COMPONENT library
+	)
 else()
 	message(STATUS "Installing Unix shared-library")
 	install(TARGETS ssllabs-shared LIBRARY DESTINATION ${LIBRARY_INSTALL_DIR}/ssllabs)
