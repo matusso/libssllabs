@@ -6,11 +6,11 @@
 #include "../include/ssllabs/ssllabs.h"
 #include "../include/rapidjson/document.h"
 
-int SSLlabs::getInfo(const std::string &info) {
+int SSLlabs::getInfo(const std::string &data) {
     std::string url(SSLLABS_API_URL);
 
     url += "/info";
-    curl_read(url, info);
+    curl_read(url, data);
 
     return 0;
 }

@@ -241,16 +241,17 @@ public:
 
     long timeout;
 
-    int analyze(const std::string domain);
+    int analyze(const std::string domain, const std::string &data);
+    int analyze(const std::string domain, labsReport_t &report);
 
-    int getInfo(const std::string &info);
+    int getInfo(const std::string &data);
     int getInfo(labsInfo_t &info);
 
     int getRootCertsRaw(const std::string &certs);
     int getStatusCodes(const std::string &codes);
 
 protected:
-    int curl_read(const std::string &url, const std::string &data);
+    int curl_read(const std::string &command, const std::string &data);
 
 private:
 };

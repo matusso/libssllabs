@@ -1,4 +1,4 @@
-set(SOURCE_FILES ssllabs.cpp get_info.cpp)
+set(SOURCE_FILES ssllabs.cpp getInfo.cpp analyze.cpp)
 
 # linked libraries
 set(LIBS ${LIBS} curl)

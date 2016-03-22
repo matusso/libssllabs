@@ -24,41 +24,22 @@ SSLlabs::~SSLlabs() {
     curl_global_cleanup();
 }
 
-int SSLlabs::analyze(const std::string domain) {
-    std::string url(SSLLABS_API_URL);
-    std::string data = {};
-
-    url += "/analyze?host=";
-    url += domain;
-
-    curl_read(url, data);
-    std::cout << "url: " << url << std::endl;
-    std::cout << data << std::endl;
-
-    return 0;
-}
-
 int SSLlabs::getRootCertsRaw(const std::string &certs) {
-    std::string url(SSLLABS_API_URL);
-
-    url += "/getRootCertsRaw";
-    curl_read(url, certs);
-
+    curl_read("/getRootCertsRaw", certs);
     return 0;
 }
 
 int SSLlabs::getStatusCodes(const std::string &codes) {
-    std::string url(SSLLABS_API_URL);
-
-    url += "/getStatusCodes";
-    curl_read(url, codes);
-
+    curl_read("/getStatusCodes", codes);
     return 0;
 }
 
-int SSLlabs::curl_read(const std::string &url, const std::string &data) {
+int SSLlabs::curl_read(const std::string &command, const std::string &data) {
     CURLcode code(CURLE_FAILED_INIT);
     CURL * curl = curl_easy_init();
+    std::string url(SSLLABS_API_URL);
+
+    url += command;
 
     if(curl) {
         if(CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback))
