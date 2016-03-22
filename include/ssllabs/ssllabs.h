@@ -241,8 +241,10 @@ public:
 
     long timeout;
 
-    int analyze(const std::string domain, const std::string &data);
-    int analyze(const std::string domain, labsReport_t &report);
+    int analyze(const std::string domain, const std::string &data, bool publish = false,
+                bool startNew = false, bool fromCache = false, bool ignoreMismatch = false);
+    int analyze(const std::string domain, labsReport_t &report, bool publish = false,
+                bool startNew = false, bool fromCache = false, bool ignoreMismatch = false);
 
     int getInfo(const std::string &data);
     int getInfo(labsInfo_t &info);

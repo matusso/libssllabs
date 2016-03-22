@@ -41,8 +41,8 @@ int SSLlabs::curl_read(const std::string &command, const std::string &data) {
 
     url += command;
 
-    if(curl) {
-        if(CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback))
+    if (curl) {
+        if (CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback))
            && CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&data))
            && CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L))
            && CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L))
@@ -54,7 +54,6 @@ int SSLlabs::curl_read(const std::string &command, const std::string &data) {
                 std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(code) << "\n";
             }
         }
-
         curl_easy_cleanup(curl);
     }
 

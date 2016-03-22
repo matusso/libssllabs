@@ -6,26 +6,48 @@
 #include "../include/ssllabs/ssllabs.h"
 #include "../include/rapidjson/document.h"
 
-int SSLlabs::analyze(const std::string domain, const std::string &data) {
+int SSLlabs::analyze(const std::string domain, const std::string &data,
+                     bool publish, bool startNew, bool fromCache, bool ignoreMismatch) {
     std::string command("/analyze?host=");
 
     command += domain;
-    curl_read(command, data);
-    return 0;
+    if (publish) {
+        command += "&publish=on";
+    }
+
+    if (startNew && fromCache) {
+        std::cerr << "could not use startNew and fromCache at the same time\n";
+        return -1;
+    }
+
+    return curl_read(command, data);
 }
 
-int SSLlabs::analyze(const std::string domain, labsReport_t &report) {
+int SSLlabs::analyze(const std::string domain, labsReport_t &report,
+                     bool publish, bool startNew, bool fromCache, bool ignoreMismatch) {
     std::string command("/analyze?host=");
     std::string data = {};
     rapidjson::Document document;
+    labsEndpoint_t endpoint;
 
     command += domain;
+    if (publish) {
+        command += "&publish=on";
+    }
+
+    if (startNew && fromCache) {
+        std::cerr << "could not use startNew and fromCache at the same time\n";
+        return -1;
+    }
+
     curl_read(command, data);
 
     if (document.Parse<0>(data.c_str()).HasParseError()) {
         std::cerr << "could not parse json document\n";
         return -1;
     }
+
+    report.RawJson.assign(data);
 
     if (document.HasMember("host") && document["host"].IsString()) {
         report.Host.assign(document["host"].GetString());
