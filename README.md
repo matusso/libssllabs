@@ -1,5 +1,9 @@
 # libssllabs
 [![Build Status](https://travis-ci.org/matusso/libssllabs.svg?branch=master)](https://travis-ci.org/matusso/libssllabs) 
+<a href="https://scan.coverity.com/projects/matusso-libssllabs">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/8326/badge.svg"/>
+</a>
 <br><br>
 
 C++ library to work with SSL<br>
