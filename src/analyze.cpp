@@ -11,13 +11,26 @@ int SSLlabs::analyze(const std::string domain, const std::string &data,
     std::string command("/analyze?host=");
 
     command += domain;
+    if (startNew && fromCache) {
+        std::cerr << "could not use startNew and fromCache at the same time\n";
+        return -1;
+    }
+
     if (publish) {
         command += "&publish=on";
     }
 
-    if (startNew && fromCache) {
-        std::cerr << "could not use startNew and fromCache at the same time\n";
-        return -1;
+    if (startNew) {
+        command += "&startNew=on";
+    }
+
+    if (fromCache) {
+        command += "&fromCache=on";
+    }
+    else {
+        if (ignoreMismatch) {
+            command += "&ignoreMismatch=on";
+        }
     }
 
     return curl_read(command, data);
@@ -31,16 +44,31 @@ int SSLlabs::analyze(const std::string domain, labsReport_t &report,
     labsEndpoint_t endpoint;
 
     command += domain;
-    if (publish) {
-        command += "&publish=on";
-    }
-
     if (startNew && fromCache) {
         std::cerr << "could not use startNew and fromCache at the same time\n";
         return -1;
     }
 
-    curl_read(command, data);
+    if (publish) {
+        command += "&publish=on";
+    }
+
+    if (startNew) {
+        command += "&startNew=on";
+    }
+
+    if (fromCache) {
+        command += "&fromCache=on";
+    }
+    else {
+        if (ignoreMismatch) {
+            command += "&ignoreMismatch=on";
+        }
+    }
+
+    if (curl_read(command, data) != 0) {
+        return -1;
+    }
 
     if (document.Parse<0>(data.c_str()).HasParseError()) {
         std::cerr << "could not parse json document\n";
