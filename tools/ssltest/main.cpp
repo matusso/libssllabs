@@ -6,6 +6,8 @@
 #include <vector>
 #include <ssllabs/ssllabs.h>
 
+using namespace ssllabs;
+
 int main() {
     SSLlabs sl;
     labsInfo_t inf;

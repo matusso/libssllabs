@@ -8,10 +8,22 @@
 #include "../include/ssllabs/ssllabs.h"
 #include "../include/rapidjson/document.h"
 
-void getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+namespace ssllabs {
+
+    class Endpoint {
+    public:
+        static void getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
                 rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> &obj, labsEndpoint_t &endpoint);
 
-labsEndpoint_t getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
-        rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> &obj);
+        static labsEndpoint_t getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+                rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> &obj);
+
+    protected:
+
+    private:
+
+    };
+
+}
 
 #endif //SSLLABS_ENDPOINT_H
