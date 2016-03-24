@@ -5,6 +5,7 @@
 #include <iostream>
 #include "../include/ssllabs/ssllabs.h"
 #include "../include/rapidjson/document.h"
+#include "endpoint.h"
 
 int SSLlabs::analyze(const std::string domain, const std::string &data,
                      bool publish, bool startNew, bool fromCache, bool ignoreMismatch) {
@@ -38,9 +39,10 @@ int SSLlabs::analyze(const std::string domain, const std::string &data,
 
 int SSLlabs::analyze(const std::string domain, labsReport_t &report,
                      bool publish, bool startNew, bool fromCache, bool ignoreMismatch) {
+    rapidjson::Document document;
     std::string command("/analyze?host=");
     std::string data = {};
-    rapidjson::Document document;
+    labsEndpoint_t endpoint;
 
     command += domain;
     if (startNew && fromCache) {
@@ -113,64 +115,14 @@ int SSLlabs::analyze(const std::string domain, labsReport_t &report,
     }
 
     if (document.HasMember("endpoints") && document["endpoints"].IsArray()) {
-        for(auto i = document["endpoints"].GetArray().Begin(); i != document["endpoints"].GetArray().End(); i++) {
+        for (auto i = document["endpoints"].GetArray().Begin(); i != document["endpoints"].GetArray().End(); i++) {
             if (i->IsObject()) {
-                labsEndpoint_t endpoint;
-                auto j = i->GetObject();
-                if (j.HasMember("ipAddress") && j["ipAddress"].IsString()) {
-                    endpoint.IpAddress.assign(j["ipAddress"].GetString());
-                }
-
-                if (j.HasMember("serverName") && j["serverName"].IsString()) {
-                    endpoint.ServerName.assign(j["serverName"].GetString());
-                }
-
-                if (j.HasMember("statusMessage") && j["statusMessage"].IsString()) {
-                    endpoint.StatusMessage.assign(j["statusMessage"].GetString());
-                }
-
-                if (j.HasMember("statusDetailsMessage") && j["statusDetailsMessage"].IsString()) {
-                    endpoint.StatusDetailMessage.assign(j["statusDetailsMessage"].GetString());
-                }
-
-                if (j.HasMember("grade") && j["grade"].IsString()) {
-                    endpoint.Grade.assign(j["grade"].GetString());
-                }
-
-                if (j.HasMember("gradeTrustIgnored") && j["gradeTrustIgnored"].IsString()) {
-                    endpoint.GradeTrustIgnored.assign(j["gradeTrustIgnored"].GetString());
-                }
-
-                if (j.HasMember("hasWarnings") && j["hasWarnings"].IsBool()) {
-                    endpoint.HasWarnings = j["hasWarnings"].GetBool();
-                }
-
-                if (j.HasMember("isExceptional") && j["isExceptional"].IsBool()) {
-                    endpoint.IsExceptional = j["isExceptional"].GetBool();
-                }
-
-                if (j.HasMember("progress") && j["progress"].IsInt()) {
-                    endpoint.Progress = j["progress"].GetInt();
-                }
-
-                if (j.HasMember("duration") && j["duration"].IsInt()) {
-                    endpoint.Duration = j["duration"].GetInt();
-                }
-
-                if (j.HasMember("eta") && j["eta"].IsInt()) {
-                    endpoint.Eta = j["eta"].GetInt();
-                }
-
-                if (j.HasMember("delegation") && j["delegation"].IsInt()) {
-                    endpoint.Delegation = j["delegation"].GetInt();
-                }
-
+                endpoint = {};
+                getEndpointData(i->GetObject(), endpoint);
                 report.Endpoints.push_back(endpoint);
             }
         }
-
     }
-
 
     return 0;
 }
