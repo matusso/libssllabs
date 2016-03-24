@@ -42,7 +42,6 @@ int SSLlabs::analyze(const std::string domain, labsReport_t &report,
     rapidjson::Document document;
     std::string command("/analyze?host=");
     std::string data = {};
-    labsEndpoint_t endpoint;
 
     command += domain;
     if (startNew && fromCache) {
@@ -117,9 +116,7 @@ int SSLlabs::analyze(const std::string domain, labsReport_t &report,
     if (document.HasMember("endpoints") && document["endpoints"].IsArray()) {
         for (auto i = document["endpoints"].GetArray().Begin(); i != document["endpoints"].GetArray().End(); i++) {
             if (i->IsObject()) {
-                endpoint = {};
-                getEndpointData(i->GetObject(), endpoint);
-                report.Endpoints.push_back(endpoint);
+                report.Endpoints.push_back(getEndpointData(i->GetObject()));
             }
         }
     }

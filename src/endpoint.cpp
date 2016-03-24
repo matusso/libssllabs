@@ -5,8 +5,8 @@
 #include <iostream>
 #include "endpoint.h"
 
-int getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
-        rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> obj, labsEndpoint_t &endpoint) {
+void getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+        rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> &obj, labsEndpoint_t &endpoint) {
     if (obj.HasMember("ipAddress") && obj["ipAddress"].IsString()) {
         endpoint.IpAddress.assign(obj["ipAddress"].GetString());
     }
@@ -55,5 +55,13 @@ int getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
         endpoint.Delegation = obj["delegation"].GetInt();
     }
 
-    return 0;
+    return;
+}
+
+labsEndpoint_t getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+        rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> &obj) {
+    labsEndpoint_t endpoint = {};
+
+    getEndpointData(obj, endpoint);
+    return endpoint;
 }
