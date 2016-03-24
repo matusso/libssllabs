@@ -118,7 +118,7 @@ namespace ssllabs {
         if (document.HasMember("endpoints") && document["endpoints"].IsArray()) {
             for (auto i = document["endpoints"].GetArray().Begin(); i != document["endpoints"].GetArray().End(); i++) {
                 if (i->IsObject()) {
-                    report.Endpoints.push_back(ssllabs::Endpoint::getEndpointData(i->GetObject()));
+                    report.Endpoints.push_back(Endpoint::parseEndpointData(i->GetObject()));
                 }
             }
         }

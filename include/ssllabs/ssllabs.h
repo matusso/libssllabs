@@ -258,6 +258,10 @@ namespace ssllabs {
 
         int getStatusCodes(const std::string &codes);
 
+        int getEndpointData(const std::string domain, const std::string endpoint, const std::string &data);
+
+        int getEndpointData(const std::string domain, const std::string endpoint, labsEndpoint_t &data);
+
     protected:
         int curl_read(const std::string &command, const std::string &data);
 

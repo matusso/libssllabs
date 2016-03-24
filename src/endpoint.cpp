@@ -7,7 +7,34 @@
 
 namespace ssllabs {
 
-    void Endpoint::getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+    int SSLlabs::getEndpointData(const std::string domain, const std::string endpoint, const std::string &data) {
+        std::string command = {};
+
+        command = "/getEndpointData?host=" + domain + "&s=" + endpoint;
+        return curl_read(command, data);
+    }
+
+    int SSLlabs::getEndpointData(const std::string domain, const std::string endpoint, labsEndpoint_t &data) {
+        std::string command = {};
+        std::string json = {};
+        rapidjson::Document document;
+
+        command = "/getEndpointData?host=" + domain + "&s=" + endpoint;
+        curl_read(command, json);
+
+        if (document.Parse<0>(json.c_str()).HasParseError()) {
+            std::cerr << "could not parse json document\n";
+            return -1;
+        }
+
+        if (document.IsObject()) {
+            Endpoint::parseEndpointData(document.GetObject(), data);
+        }
+
+        return 0;
+    }
+
+    void Endpoint::parseEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
             rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> &obj, labsEndpoint_t &endpoint) {
         if (obj.HasMember("ipAddress") && obj["ipAddress"].IsString()) {
             endpoint.IpAddress.assign(obj["ipAddress"].GetString());
@@ -60,11 +87,11 @@ namespace ssllabs {
         return;
     }
 
-    labsEndpoint_t Endpoint::getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+    labsEndpoint_t Endpoint::parseEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
             rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> &obj) {
         labsEndpoint_t endpoint = {};
 
-        getEndpointData(obj, endpoint);
+        parseEndpointData(obj, endpoint);
         return endpoint;
     }
 

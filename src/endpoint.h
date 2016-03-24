@@ -12,10 +12,10 @@ namespace ssllabs {
 
     class Endpoint {
     public:
-        static void getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+        static void parseEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
                 rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> &obj, labsEndpoint_t &endpoint);
 
-        static labsEndpoint_t getEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+        static labsEndpoint_t parseEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
                 rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> &obj);
 
     protected:
