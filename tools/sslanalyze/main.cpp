@@ -19,6 +19,16 @@ int main() {
     std::cout << "Status: " << rpt.Status << std::endl;
     std::cout << "EngineVersion: " << rpt.EngineVersion << std::endl;
     std::cout << "CriteriaVersion: " << rpt.CriteriaVersion << std::endl;
+    std::cout << "Endpoints: " << std::endl;
+
+    for (auto i = rpt.Endpoints.begin(); i != rpt.Endpoints.end(); i++) {
+        std::cout << "ipAddress: " << i->IpAddress << std::endl;
+        std::cout << "grade: " << i->Grade << std::endl;
+    }
+
+
+    std::cout << std::endl << "Raw Data: " << rpt.RawJson << std::endl;
+
 
     return 0;
 }
