@@ -12,8 +12,6 @@ os:
 before_install:
 - echo $LANG
 - echo $LC_ALL
-# LINUX
-- if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq update; sudo apt-get install -y cmake libcurl4-openssl-dev; fi
 # OSX
 - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install cmake curl; fi
 
@@ -32,7 +30,7 @@ env:
   - secure: "NlvdECkIgowMDr4HVvC0Ca8v3sE0pMzgqZ2xpFYrUVpY07xtXKgWITGHrtEGAaqET76d/sk1upXKTpCsm/JE0WP0TH6HQsgmETdA2i1Fs7zEOMHAqIGAl4LECKhXx2aP15pJtBp9lvrRqP/FxXoCq7p/8CEOrf3ObGB0MqDvP92oBR/oNdKxfMU2/6Bq3qTOrtC1swEUXrqES9uIwbP257W24VPCAmFYZNHRTMqtg23NVnuS0xLL4m2l/urieqFfQfkaxXfpJ/NXuT1YpLjVZZR3XqJpMFC0s5o6i3OsOJSQv7ozvVeiMgka9dBRC2LNwaxzulm8twVWFw3YOz/Sl3WDxgeLnqfbC3kOlwl21+Gd4q0eFbI+vSxcdlG8vVuwYtEySkwPd7uEPRi1B3UYlGDiNgvTbaKk6z+O786SoGD8FMexGzdjG6ENp23v31JIenNXE8bupxzo9YsxSd2s+gmmB45aInrnSSbVwhhjQwEtiyK0fm32dJm/ax9YRzEYbeo6wrqqAVEMbLLke4qu7Lm0KYFk5gU+n4v3m23osg06M/iToCX9bpIkxvXEpfrRZVMCfGAuK81E5bv83knZ6toA2fGNGZqkdPEdPrd+aXAcbrKvqM1YfZR0sLRDd+KYL4v6ar5nI3xJUxZ3nBTBx6pkDbuzQJtALvvG0oYvVnI="
 
 addons:
-  coverity_scan:
+  - coverity_scan:
     project:
       name: "matusso/libssllabs"
       description: "Build submitted via Travis CI"
@@ -40,6 +38,9 @@ addons:
     build_command_prepend: "cmake ."
     build_command:   "make -j 4"
     branch_pattern: master
+
+  - apt:
+    packages: cmake libcurl4-openssl-dev
 
 script:
 - cmake .
