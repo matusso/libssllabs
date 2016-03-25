@@ -13,10 +13,10 @@ before_install:
 - echo $LANG
 - echo $LC_ALL
 # OSX
-- if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; brew install cmake curl; fi
+- if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; brew unlink cmake; brew install cmake curl; fi
 
 install: true
-
+l
 branches:
   only:
   - master
