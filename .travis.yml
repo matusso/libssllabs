@@ -3,45 +3,36 @@ dist: trusty
 compiler:
 - gcc
 - clang
-
 sudo: required
 os:
 - linux
 - osx
-
 before_install:
 - echo $LANG
 - echo $LC_ALL
-# OSX
-- if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; brew unlink cmake; brew install cmake curl; fi
-
+- if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; brew unlink cmake; brew install
+  cmake curl; fi
 install: true
-
 branches:
   only:
   - master
-
 notifications:
   email: false
-
 env:
   global:
   - LANG="en_US.UTF-8"
-  - secure: "NlvdECkIgowMDr4HVvC0Ca8v3sE0pMzgqZ2xpFYrUVpY07xtXKgWITGHrtEGAaqET76d/sk1upXKTpCsm/JE0WP0TH6HQsgmETdA2i1Fs7zEOMHAqIGAl4LECKhXx2aP15pJtBp9lvrRqP/FxXoCq7p/8CEOrf3ObGB0MqDvP92oBR/oNdKxfMU2/6Bq3qTOrtC1swEUXrqES9uIwbP257W24VPCAmFYZNHRTMqtg23NVnuS0xLL4m2l/urieqFfQfkaxXfpJ/NXuT1YpLjVZZR3XqJpMFC0s5o6i3OsOJSQv7ozvVeiMgka9dBRC2LNwaxzulm8twVWFw3YOz/Sl3WDxgeLnqfbC3kOlwl21+Gd4q0eFbI+vSxcdlG8vVuwYtEySkwPd7uEPRi1B3UYlGDiNgvTbaKk6z+O786SoGD8FMexGzdjG6ENp23v31JIenNXE8bupxzo9YsxSd2s+gmmB45aInrnSSbVwhhjQwEtiyK0fm32dJm/ax9YRzEYbeo6wrqqAVEMbLLke4qu7Lm0KYFk5gU+n4v3m23osg06M/iToCX9bpIkxvXEpfrRZVMCfGAuK81E5bv83knZ6toA2fGNGZqkdPEdPrd+aXAcbrKvqM1YfZR0sLRDd+KYL4v6ar5nI3xJUxZ3nBTBx6pkDbuzQJtALvvG0oYvVnI="
-
+  - secure: XN2+Kwe2K1gm7LMgXJ5GUYekey0XVH3hJCg902c36n3pr/b7qEWGQn9929GpLat5ZzcGFtvSWBMxZtY1EGt3h5WJYJK26LdCSdNOnJMt1CKvei5XsbOUtE7oKf+sfrvWvKYAunlPPnCQ/uS3rpRby3nxbZnqse9NnVuyCVZb6lfcXDjRSLaZXckdNsIUVKCVPxN/ILj6O7qJZLu9f1wpajsh+7ea5CqJQdf2MmNjUOgYktXSkgDGK9NI25BcniP5iXrRoBGvHo1T7S1/fR/V3v0NJTNzcwP0qgO1x8x0+pf8BAl5HSk8KkI6u2IxkbE4MpVwaLI/RfCwCTIjPJXVGhozy4zBx7Ec0+Lyx2GGaZXFghWoJXak4AbZ8lbPhiS7JrZk/Pow9D7QfPz1ljdhY9HFpD6pSdulRwTLjWtdQu4ocUSblo2ktMymNCuAenM9ybajSEjCQyajRZjrChmXfzXF0oXS/w8vLJPXyD5vE9ZQwws3jbNr1pbQ4QQhUchL0ohekYDflZHUsEEVLulOvCsIVZoj+iTxFFF0YUCpZhJkXPYyNT6eaqYHTWKQ/MuEqRmjIDggkkeisyV7kkbcByMrUJ+SRExxTxWyjluE9pBmvNi6RKGXD2HXAHyP5eCFKg7mfex9c+9r+ZM+WtErKmokwTfCb7OhkQpqJ+b9gLA=
 addons:
-  - coverity_scan:
-    project:
-      name: "matusso/libssllabs"
-      description: "Build submitted via Travis CI"
-    notification_email: burso@burso.eu
-    build_command_prepend: "cmake ."
-    build_command:   "make -j 4"
-    branch_pattern: master
-
-  - apt:
-    packages: cmake libcurl4-openssl-dev
-
+- coverity_scan: 
+  project:
+    name: matusso/libssllabs
+    description: Build submitted via Travis CI
+  notification_email: burso@burso.eu
+  build_command_prepend: cmake .
+  build_command: make -j 4
+  branch_pattern: master
+- apt: 
+  packages: cmake libcurl4-openssl-dev
 script:
 - cmake .
 - make -j 4
