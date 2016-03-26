@@ -20,25 +20,13 @@ notifications:
     on_build_failure: false
     on_build_status_changed: false
 
-install:
-  #let's use the pre-installed mingw
-  - ps: $env:PATH = 'C:\MinGW\bin;C:\MinGW\mingw32\bin;C:\MinGW\msys\1.0\bin;' + $env:PATH
-  #we copy mingw32-make to have a "make" executable
-  - cmd: copy c:\MinGW\bin\mingw32-make.exe c:\MinGW\bin\make.exe
-
 #needed to download other deps
-  - cinst wget curl
+  - cinst curl
 
-  #let's install the LLVM distribution
-  - cmd: mkdir LLVM_DOWNLOAD
-  - cmd: cd LLVM_DOWNLOAD
-  - cmd: wget "http://llvm.org/releases/3.6.0/LLVM-3.6.0-win32.exe"
-  - cmd: 7z x LLVM-3.6.0-win32.exe
-  - cmd: ren $_OUTDIR LLVM-3.6.0
-  - cmd: move LLVM-3.6.0 c:\
-  - ps: $env:PATH = 'c:\LLVM-3.6.0\bin;' + $env:PATH
-
-build_script:
+before_build:
   - ps: cd "c:\projects\libssllabs"
   - cmd: cmake .
-  - cmd: sh -c "make V=1"
+
+build:
+  project: ssllabs.sln
+
