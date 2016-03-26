@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.2)
 
 if(WIN32)
-    set(CMAKE_C_COMPILER "C:/llvm/bin/clang")
-    set(CMAKE_CXX_COMPILER "C:/llvm/bin/clang++")
-    set(CMAKE_MAKE_PROGRAM "C:/MinGW/bin/make.exe")
+    set(CMAKE_C_COMPILER C:/llvm/bin/clang.exe)
+    set(CMAKE_CXX_COMPILER C:/llvm/bin/clang++.exe)
+    set(CMAKE_MAKE_PROGRAM C:/MinGW/bin/make.exe)
 endif()
 
 project(ssllabs)
