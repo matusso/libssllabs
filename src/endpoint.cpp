@@ -84,6 +84,10 @@ namespace ssllabs {
             endpoint.Delegation = obj["delegation"].GetInt();
         }
 
+        if (obj.HasMember("details") && obj["details"].IsObject()) {
+
+        }
+
         return;
     }
 
