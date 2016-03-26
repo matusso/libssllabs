@@ -2,7 +2,10 @@ set(SOURCE_FILES ssllabs.cpp getInfo.cpp analyze.cpp endpoint.cpp)
 
 # linked libraries
 set(LIBS ${LIBS} curl)
+
+if (CMAKE_SYSTEM_NAME STREQUAL Linux)
 add_definitions(-coverage)
+endif()
 
 # shared library
 add_library(ssllabs-shared SHARED ${SOURCE_FILES})
