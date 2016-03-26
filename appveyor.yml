@@ -25,19 +25,7 @@ install:
   #we copy mingw32-make to have a "make" executable
   - cmd: copy c:\MinGW\bin\mingw32-make.exe c:\MinGW\bin\make.exe
 
-  #needed to download other deps
-  - cinst wget
-
-  #let's install the LLVM distribution
-  - cmd: mkdir LLVM_DOWNLOAD
-  - cmd: cd LLVM_DOWNLOAD
-  - cmd: wget "http://llvm.org/releases/3.6.0/LLVM-3.6.0-win32.exe"
-  - cmd: 7z x LLVM-3.6.0-win32.exe
-  - cmd: ren $_OUTDIR llvm
-  - cmd: move llvm c:\
-  - ps: $env:PATH = 'c:\llvm\bin;' + $env:PATH
-
 build_script:
   - ps: cd "c:\projects\libssllabs"
-  - cmd: cmake -G "Unix Makefiles" .
+  - cmd: cmake -G "MinGW Makefiles" .
   - cmd: sh -c "make V=1"
