@@ -1,4 +1,11 @@
 cmake_minimum_required(VERSION 3.2)
+
+if(WIN32)
+    set(CMAKE_C_COMPILER "C:/llvm/bin/clang")
+    set(CMAKE_CXX_COMPILER "C:/llvm/bin/clang++")
+    set(CMAKE_MAKE_PROGRAM "C:/MinGW/bin/make.exe")
+endif()
+
 project(ssllabs)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
