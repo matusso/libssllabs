@@ -1,10 +1,12 @@
 # libssllabs
-[![Build Status](https://travis-ci.org/matusso/libssllabs.svg?branch=master)](https://travis-ci.org/matusso/libssllabs) 
+[![Build Status](https://travis-ci.org/matusso/libssllabs.svg?branch=master)](https://travis-ci.org/matusso/libssllabs)
+[![Build status](https://ci.appveyor.com/api/projects/status/n5rehrtbx70cccwm?svg=true)](https://ci.appveyor.com/project/matusso/libssllabs)
 <a href="https://scan.coverity.com/projects/matusso-libssllabs">
   <img alt="Coverity Scan Build Status"
        src="https://scan.coverity.com/projects/8326/badge.svg"/>
 </a>
 [![Documentation Status](https://readthedocs.org/projects/libssllabs/badge/?version=latest)](http://libssllabs.readthedocs.org/en/latest/?badge=latest)
+
 <br><br>
 
 C++ linux/osx library to work with SSL<br>
