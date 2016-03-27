@@ -9,7 +9,7 @@
 
 <br><br>
 
-C++ linux/osx library to work with SSL<br>
+C++ library (windows/linux/osx) to work with SSL<br>
 Qualys SSL Labs: https://www.ssllabs.com/
 
 libssllabs communicates with SSLLabs via API <br>
