@@ -29,7 +29,8 @@ install:
   - cmd: wget "https://curl.haxx.se/download/curl-7.48.0.zip"
   - cmd: 7z x curl-7.48.0.zip
   - cmd: ren curl-7.48.0 curl
-  - cmd: cd curl\curl
+  - cmd: cd curl
+  - cmd: dir
   - cmd: cmake .
   - cmd: cmake --build .
 
