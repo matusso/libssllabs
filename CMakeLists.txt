@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 3.2)
 
-if(WIN32)
-    set(CMAKE_C_COMPILER C:/MinGW/bin/gcc.exe)
-    set(CMAKE_CXX_COMPILER C:/MinGW/bin/g++.exe)
-    set(CMAKE_MAKE_PROGRAM C:/MinGW/bin/make.exe)
-endif()
-
 project(ssllabs)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+if(WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    include_directories(C:/library/curl/curl-7.48.0/include)
+    link_directories(C:/library/curl/curl-7.48.0/lib/Debug)
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+endif()
+
 set(CMAKE_INSTALL_PREFIX /usr/local/)
 
 set(ARCHIVE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib CACHE PATH "Install dir for static libraries")

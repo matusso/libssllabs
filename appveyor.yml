@@ -20,12 +20,20 @@ notifications:
     on_build_status_changed: false
 
 install:
-  #let's use the pre-installed mingw
-  - ps: $env:PATH = 'C:\MinGW\bin;C:\MinGW\mingw32\bin;C:\MinGW\msys\1.0\bin;' + $env:PATH
-  #we copy mingw32-make to have a "make" executable
-  - cmd: copy c:\MinGW\bin\mingw32-make.exe c:\MinGW\bin\make.exe
+  # needed to download other deps
+  - cinst wget
+
+  # install curl
+  - cmd: mkdir c:\library
+  - cmd: cd c:\library
+  - cmd: wget "https://curl.haxx.se/download/curl-7.48.0.zip"
+  - cmd: 7z x curl-7.48.0.zip
+  - cmd: ren $_OUTDIR curl
+  - cmd: cd curl
+  - cmd: cmake .
+  - cmd: cmake --build .
 
 build_script:
   - ps: cd "c:\projects\libssllabs"
-  - cmd: cmake -G "MinGW Makefiles" .
-  - cmd: sh -c "make V=1"
+  - cmd: cmake .
+  - cmd: cmake --build .
