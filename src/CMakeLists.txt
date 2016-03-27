@@ -1,7 +1,11 @@
 set(SOURCE_FILES ssllabs.cpp getInfo.cpp analyze.cpp endpoint.cpp)
 
 # linked libraries
-set(LIBS ${LIBS} curl)
+if (WIN32)
+    set(LIBS ${LIBS} libcurl_imp)
+else()
+    set(LIBS ${LIBS} curl)
+endif()
 
 # shared library
 add_library(ssllabs-shared SHARED ${SOURCE_FILES})
