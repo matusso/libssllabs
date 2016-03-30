@@ -18,9 +18,6 @@ branches:
 notifications:
   email: false
 env:
-  - ARCH=x64
-  - ARCH=arm
-
   global:
   - LANG="en_US.UTF-8"
   - secure: XN2+Kwe2K1gm7LMgXJ5GUYekey0XVH3hJCg902c36n3pr/b7qEWGQn9929GpLat5ZzcGFtvSWBMxZtY1EGt3h5WJYJK26LdCSdNOnJMt1CKvei5XsbOUtE7oKf+sfrvWvKYAunlPPnCQ/uS3rpRby3nxbZnqse9NnVuyCVZb6lfcXDjRSLaZXckdNsIUVKCVPxN/ILj6O7qJZLu9f1wpajsh+7ea5CqJQdf2MmNjUOgYktXSkgDGK9NI25BcniP5iXrRoBGvHo1T7S1/fR/V3v0NJTNzcwP0qgO1x8x0+pf8BAl5HSk8KkI6u2IxkbE4MpVwaLI/RfCwCTIjPJXVGhozy4zBx7Ec0+Lyx2GGaZXFghWoJXak4AbZ8lbPhiS7JrZk/Pow9D7QfPz1ljdhY9HFpD6pSdulRwTLjWtdQu4ocUSblo2ktMymNCuAenM9ybajSEjCQyajRZjrChmXfzXF0oXS/w8vLJPXyD5vE9ZQwws3jbNr1pbQ4QQhUchL0ohekYDflZHUsEEVLulOvCsIVZoj+iTxFFF0YUCpZhJkXPYyNT6eaqYHTWKQ/MuEqRmjIDggkkeisyV7kkbcByMrUJ+SRExxTxWyjluE9pBmvNi6RKGXD2HXAHyP5eCFKg7mfex9c+9r+ZM+WtErKmokwTfCb7OhkQpqJ+b9gLA=
