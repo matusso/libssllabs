@@ -18,6 +18,9 @@ namespace ssllabs {
         static labsEndpoint_t parseEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
                 rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>> &obj);
 
+        static void parseEndpointDetails(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+                rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsEndpoint_t &endpoint);
+
     protected:
 
     private:

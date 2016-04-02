@@ -85,7 +85,7 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("details") && obj["details"].IsObject()) {
-
+            parseEndpointDetails(obj["details"].GetObject(), endpoint);
         }
 
         return;
@@ -98,5 +98,12 @@ namespace ssllabs {
         parseEndpointData(obj, endpoint);
         return endpoint;
     }
+
+    void Endpoint::parseEndpointDetails(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsEndpoint_t &endpoint) {
+
+        return;
+    }
+
 
 }
