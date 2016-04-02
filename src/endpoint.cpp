@@ -102,6 +102,166 @@ namespace ssllabs {
     void Endpoint::parseEndpointDetails(const rapidjson::GenericValue<rapidjson::UTF8<char>,
             rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsEndpoint_t &endpoint) {
 
+        if (obj.HasMember("hostStartTime") && obj["hostStartTime"].IsInt64()) {
+            endpoint.Details.HostStartTime = obj["hostStartTime"].GetInt64();
+        }
+
+        if (obj.HasMember("key") && obj["key"].IsObject()) {
+
+        }
+
+        if (obj.HasMember("cert") && obj["cert"].IsObject()) {
+
+        }
+
+        if (obj.HasMember("chain") && obj["chain"].IsObject()) {
+
+        }
+
+        if (obj.HasMember("protocols") && obj["protocols"].IsArray()) {
+
+        }
+
+        if (obj.HasMember("suites") && obj["suites"].IsObject()) {
+
+        }
+
+        if (obj.HasMember("serverSignature") && obj["serverSignature"].IsString()) {
+            endpoint.Details.ServerSignature = obj["serverSignature"].GetString();
+        }
+
+        if (obj.HasMember("prefixDelegation") && obj["prefixDelegation"].IsBool()) {
+            endpoint.Details.PrefixDelegation = obj["prefixDelegation"].GetBool();
+        }
+
+        if (obj.HasMember("nonPrefixDelegation") && obj["nonPrefixDelegation"].IsBool()) {
+            endpoint.Details.NonPrefixDelegation = obj["nonPrefixDelegation"].GetBool();
+        }
+
+        if (obj.HasMember("vulnBeast") && obj["vulnBeast"].IsBool()) {
+            endpoint.Details.VulnBeast = obj["vulnBeast"].GetBool();
+        }
+
+        if (obj.HasMember("renegSupport") && obj["renegSupport"].IsInt()) {
+            endpoint.Details.RenegSupport = obj["renegSupport"].GetInt();
+        }
+
+        // * TODO: need to parse stsStatus & sts.. any variable;
+
+        if (obj.HasMember("sessionResumption") && obj["sessionResumption"].IsInt()) {
+            endpoint.Details.SessionResumption = obj["sessionResumption"].GetInt();
+        }
+
+        if (obj.HasMember("compressionMethods") && obj["compressionMethods"].IsInt()) {
+            endpoint.Details.CompressionMethods = obj["compressionMethods"].GetInt();
+        }
+
+        if (obj.HasMember("supportsNpn") && obj["supportsNpn"].IsBool()) {
+            endpoint.Details.SupportsNpn = obj["supportsNpn"].GetInt();
+        }
+
+        if (obj.HasMember("sessionTickets") && obj["sessionTickets"].IsInt()) {
+            endpoint.Details.SessionTickets = obj["sessionTickets"].GetInt();
+        }
+
+        if (obj.HasMember("ocspStapling") && obj["ocspStapling"].IsBool()) {
+            endpoint.Details.OcspStapling = obj["ocspStapling"].GetBool();
+        }
+
+        if (obj.HasMember("sniRequired") && obj["sniRequired"].IsBool()) {
+            endpoint.Details.SniRequired = obj["sniRequired"].GetBool();
+        }
+
+        if (obj.HasMember("httpStatusCode") && obj["httpStatusCode"].IsInt()) {
+            endpoint.Details.HttpStatusCode = obj["httpStatusCode"].GetInt();
+        }
+
+        if (obj.HasMember("supportsRc4") && obj["supportsRc4"].IsBool()) {
+            endpoint.Details.SupportsRc4 = obj["supportsRc4"].GetBool();
+        }
+
+        if (obj.HasMember("rc4WithModern") && obj["rc4WithModern"].IsBool()) {
+            endpoint.Details.Rc4WithModern = obj["rc4WithModern"].GetBool();
+        }
+
+        if (obj.HasMember("rc4Only") && obj["rc4Only"].IsBool()) {
+            endpoint.Details.Rc4Only = obj["rc4Only"].GetBool();
+        }
+
+        if (obj.HasMember("forwardSecrecy") && obj["forwardSecrecy"].IsInt()) {
+            endpoint.Details.ForwardSecrecy = obj["forwardSecrecy"].GetInt();
+        }
+
+        if (obj.HasMember("sims") && obj["sims"].IsObject()) {
+
+        }
+
+        if (obj.HasMember("heartbleed") && obj["heartbleed"].IsBool()) {
+            endpoint.Details.Heartbleed = obj["heartbleed"].GetBool();
+        }
+
+        if (obj.HasMember("heartbeat") && obj["heartbeat"].IsBool()) {
+            endpoint.Details.Heartbeat = obj["heartbeat"].GetBool();
+        }
+
+        if (obj.HasMember("openSslCcs") && obj["openSslCcs"].IsInt()) {
+            endpoint.Details.OpenSslCcs = obj["openSslCcs"].GetInt();
+        }
+
+        if (obj.HasMember("poodle") && obj["poodle"].IsBool()) {
+            endpoint.Details.Poodle = obj["poodle"].GetBool();
+        }
+
+        if (obj.HasMember("poodleTls") && obj["poodleTls"].IsInt()) {
+            endpoint.Details.PoodleTls = obj["poodleTls"].GetInt();
+        }
+
+        if (obj.HasMember("fallbackScsv") && obj["fallbackScsv"].IsBool()) {
+            endpoint.Details.FallbackScsv = obj["fallbackScsv"].GetBool();
+        }
+
+        if (obj.HasMember("freak") && obj["freak"].IsBool()) {
+            endpoint.Details.Freak = obj["freak"].GetBool();
+        }
+
+        if (obj.HasMember("hasSct") && obj["hasSct"].IsInt()) {
+            endpoint.Details.HasSct = obj["hasSct"].GetInt();
+        }
+
+        if (obj.HasMember("dhPrimes") && obj["dhPrimes"].IsArray()) {
+
+        }
+
+        if (obj.HasMember("dhUsesKnownPrimes") && obj["dhUsesKnownPrimes"].IsInt()) {
+            endpoint.Details.DhUsesKnownPrimes = obj["dhUsesKnownPrimes"].GetInt();
+        }
+
+        if (obj.HasMember("dhYsReuse") && obj["dhYsReuse"].IsBool()) {
+            endpoint.Details.DhYsReuse = obj["dhYsReuse"].GetBool();
+        }
+
+        if (obj.HasMember("logjam") && obj["logjam"].IsBool()) {
+            endpoint.Details.Logjam = obj["logjam"].GetBool();
+        }
+
+        if (obj.HasMember("hstsPolicy") && obj["hstsPolicy"].IsObject()) {
+
+        }
+
+        if (obj.HasMember("hstsPreloads") && obj["hstsPreloads"].IsArray()) {
+
+        }
+
+        if (obj.HasMember("hpkpPolicy") && obj["hpkpPolicy"].IsObject()) {
+
+        }
+
+        if (obj.HasMember("hpkpRoPolicy") && obj["hpkpRoPolicy"].IsObject()) {
+
+        }
+
+        // * TODO: need to parse drownHosts && drown..;
+
         return;
     }
 
