@@ -9,22 +9,15 @@
 namespace ssllabs {
 
     int SSLlabs::getInfo(const std::string &data) {
-        std::string url(SSLLABS_API_URL);
-
-        url += "/info";
-        curl_read(url, data);
-
+        curl_read("/info", data);
         return 0;
     }
 
     int SSLlabs::getInfo(labsInfo_t &info) {
-        std::string url(SSLLABS_API_URL);
         std::string data = {};
         rapidjson::Document document;
 
-        url += "/info";
-        curl_read(url, data);
-
+        curl_read("/info", data);
         if (document.Parse<0>(data.c_str()).HasParseError()) {
             std::cerr << "could not parse json document\n";
             return -1;

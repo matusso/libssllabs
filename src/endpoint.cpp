@@ -245,7 +245,7 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("hstsPolicy") && obj["hstsPolicy"].IsObject()) {
-
+            Endpoint::parseHstsPolicy(obj["hstsPolicy"].GetObject(), endpoint.Details.HstsPolicy);
         }
 
         if (obj.HasMember("hstsPreloads") && obj["hstsPreloads"].IsArray()) {
@@ -253,14 +253,62 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("hpkpPolicy") && obj["hpkpPolicy"].IsObject()) {
-
+            Endpoint::parseHpkpPolicy(obj["hpkpPolicy"].GetObject(), endpoint.Details.HpkpPolicy);
         }
 
         if (obj.HasMember("hpkpRoPolicy") && obj["hpkpRoPolicy"].IsObject()) {
-
+            Endpoint::parseHpkpPolicy(obj["hpkpRoPolicy"].GetObject(), endpoint.Details.HpkpRoPolicy);
         }
 
         // * TODO: need to parse drownHosts && drown..;
+
+        return;
+    }
+
+    void Endpoint::parseHstsPolicy(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj, labsHstsPolicy_t &hstsPolicy) {
+
+        if (obj.HasMember("LONG_MAX_AGE") && obj["LONG_MAX_AGE"].IsInt64()) {
+            hstsPolicy.LONG_MAX_AGE = obj["LONG_MAX_AGE"].GetInt64();
+        }
+
+        if (obj.HasMember("header") && obj["header"].IsString()) {
+            hstsPolicy.Header.assign(obj["header"].GetString());
+        }
+
+        if (obj.HasMember("status") && obj["status"].IsString()) {
+            hstsPolicy.Status.assign(obj["status"].GetString());
+        }
+
+        if (obj.HasMember("maxAge") && obj["maxAge"].IsInt64()) {
+            hstsPolicy.MaxAge = obj["maxAge"].GetInt64();
+        }
+
+        if (obj.HasMember("directives") && obj["directives"].IsObject()) {
+
+        }
+
+        return;
+    }
+
+    void Endpoint::parseHpkpPolicy(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj, labsHpkpPolicy_t &hpkpPolicy) {
+
+        if (obj.HasMember("status") && obj["status"].IsString()) {
+            hpkpPolicy.Status.assign(obj["status"].GetString());
+        }
+
+        if (obj.HasMember("pins") && obj["pins"].IsArray()) {
+
+        }
+
+        if (obj.HasMember("matchedPins") && obj["matchedPins"].IsArray()) {
+
+        }
+
+        if (obj.HasMember("directives") && obj["directives"].IsObject()) {
+
+        }
 
         return;
     }
