@@ -5,7 +5,6 @@
   <img alt="Coverity Scan Build Status"
        src="https://scan.coverity.com/projects/8326/badge.svg"/>
 </a>
-[![Documentation Status](https://readthedocs.org/projects/libssllabs/badge/?version=latest)](http://libssllabs.readthedocs.org/en/latest/?badge=latest)
 
 <br><br>
 
