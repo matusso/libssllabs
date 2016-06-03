@@ -3,9 +3,10 @@
 //
 
 #include <python2.7/Python.h>
-#include "../../include/ssllabs/ssllabs.h"
+//#include "../../include/ssllabs/ssllabs.h"
 
-static PyObject* pyssllabs(PyObject* self) {
+extern "C" {
+static PyObject *pyssllabs(PyObject *self) {
     return Py_BuildValue("s", "Hello, Python extensions!!");
 }
 
@@ -13,11 +14,12 @@ static char ssllabs_docs[] =
         "ssllabs( ): Any message you want to put here!!\n";
 
 static PyMethodDef ssllabs_funcs[] = {
-        {"ssllabs", (PyCFunction)pyssllabs, METH_NOARGS, ssllabs_docs},
+        {"ssllabs", (PyCFunction) pyssllabs, METH_NOARGS, ssllabs_docs},
         {NULL}
 };
 
 void init_ssllabs(void) {
     Py_InitModule3("ssllabs", ssllabs_funcs,
                    "Extension module example!");
+}
 }
