@@ -3,7 +3,7 @@
 //
 
 #include <python2.7/Python.h>
-//#include "../../include/ssllabs/ssllabs.h"
+#include "../../include/ssllabs/ssllabs.h"
 
 extern "C" {
 static PyObject *pyssllabs(PyObject *self) {
