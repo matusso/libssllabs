@@ -29,5 +29,4 @@
 
 # IDE exceptions
 .idea
-bin/
-lib/
+build/
