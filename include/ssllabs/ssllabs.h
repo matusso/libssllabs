@@ -11,7 +11,7 @@
 #include <vector>
 #include <map>
 #include <string>
-#include <cstdint>
+#include <stdint.h>
 
 namespace ssllabs {
 
