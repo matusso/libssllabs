@@ -11,7 +11,7 @@ if (PYTHON)
     add_custom_command(OUTPUT ${OUTPUT}
             COMMAND ${PYTHON} ${SETUP_PY} build)
 
-    add_custom_target(target ALL DEPENDS ${OUTPUT})
+    add_custom_target(${PROJECT_NAME}-python ALL DEPENDS ${OUTPUT})
 
     install(CODE "execute_process(COMMAND ${PYTHON} ${SETUP_PY} install)")
 endif()
