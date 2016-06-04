@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <map>
+#include <string>
 
 namespace ssllabs {
 
@@ -246,20 +247,13 @@ namespace ssllabs {
 
         int analyze(const std::string domain, const std::string &data, bool publish = false,
                     bool startNew = false, bool fromCache = false, bool ignoreMismatch = false);
-
         int analyze(const std::string domain, labsReport_t &report, bool publish = false,
                     bool startNew = false, bool fromCache = false, bool ignoreMismatch = false);
-
         int getInfo(const std::string &data);
-
         int getInfo(labsInfo_t &info);
-
         int getRootCertsRaw(const std::string &certs);
-
         int getStatusCodes(const std::string &codes);
-
         int getEndpointData(const std::string domain, const std::string endpoint, const std::string &data);
-
         int getEndpointData(const std::string domain, const std::string endpoint, labsEndpoint_t &data);
 
     protected:
