@@ -2,10 +2,9 @@
 // Created by burso on 6/3/16.
 //
 
-#include <python2.7/Python.h>
 #include "../../include/ssllabs/ssllabs.h"
+#include <python2.7/Python.h>
 
-extern "C" {
 static PyObject *pyssllabs(PyObject *self) {
     return Py_BuildValue("s", "Hello, Python extensions!!");
 }
@@ -19,7 +18,5 @@ static PyMethodDef ssllabs_funcs[] = {
 };
 
 void init_ssllabs(void) {
-    Py_InitModule3("ssllabs", ssllabs_funcs,
-                   "Extension module example!");
-}
+    Py_InitModule3("ssllabs", ssllabs_funcs, "Extension module example!");
 }
