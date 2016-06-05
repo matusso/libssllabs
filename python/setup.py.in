@@ -5,6 +5,21 @@ from distutils.core import setup, Extension
 if __name__ == '__main__':
     setup(name='${PROJECT_NAME}',
           version='${PROJECT_VERSION}',
+          author='Matus Bursa',
+          author_email = 'burso@burso.eu',
+          url = 'https://github.com/matusso/libssllabs',
+          license='MIT',
           package_dir={ '': '${CMAKE_CURRENT_SOURCE_DIR}' },
-          ext_modules=[Extension('${PROJECT_NAME}', ['${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILES}'])])
+          ext_modules=[
+              Extension('${PROJECT_NAME}',
+                        language='c++',
+                        libraries=['curl'],
+                        sources=['${CMAKE_ROOT_PATH}/python/ssllabs/pyssllabs.cpp',
+                                 '${CMAKE_ROOT_PATH}/src/ssllabs.cpp',
+                                 '${CMAKE_ROOT_PATH}/src/getInfo.cpp',
+                                 '${CMAKE_ROOT_PATH}/src/analyze.cpp',
+                                 '${CMAKE_ROOT_PATH}/src/endpoint.cpp'],
+              )
+          ]
+    )
 

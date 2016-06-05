@@ -1,5 +1,4 @@
 find_program(PYTHON "python")
-set(SOURCE_FILES ssllabs/pyssllabs.cpp)
 
 if (PYTHON)
     set(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
