@@ -14,6 +14,7 @@ if __name__ == '__main__':
               Extension('${PROJECT_NAME}',
                         language='c++',
                         libraries=['curl'],
+			extra_compile_args=['-std=c++11'],
                         sources=['${CMAKE_ROOT_PATH}/python/ssllabs/pyssllabs.cpp',
                                  '${CMAKE_ROOT_PATH}/src/ssllabs.cpp',
                                  '${CMAKE_ROOT_PATH}/src/getInfo.cpp',
