@@ -4,15 +4,29 @@
 
 #include "../../include/ssllabs/ssllabs.h"
 #include <python2.7/Python.h>
+#include <iostream>
 
 extern "C" {
-    #include <iostream>
+    static ssllabs::SSLlabs sslLabs;
 
     static PyObject *getInfo(PyObject *self) {
         std::string data;
-        ssllabs::SSLlabs sslabs;
 
-        sslabs.getInfo(data);
+        sslLabs.getInfo(data);
+        return Py_BuildValue("s", data.c_str());
+    }
+
+    static PyObject *getRootCertsRaw(PyObject *self) {
+        std::string data;
+
+        sslLabs.getRootCertsRaw(data);
+        return Py_BuildValue("s", data.c_str());
+    }
+
+    static PyObject *getStatusCodes(PyObject * self) {
+        std::string data;
+
+        sslLabs.getStatusCodes(data);
         return Py_BuildValue("s", data.c_str());
     }
 
@@ -20,7 +34,9 @@ extern "C" {
             "ssllabs( ): Any message you want to put here!!\n";
 
     static PyMethodDef ssllabs_funcs[] = {
-            {"getInfo", (PyCFunction) getInfo, METH_NOARGS, ssllabs_docs},
+            {"getInfo", (PyCFunction)getInfo, METH_NOARGS, ssllabs_docs},
+            {"getRootCertsRaw", (PyCFunction)getRootCertsRaw, METH_NOARGS, ssllabs_docs},
+            {"getStatusCodes", (PyCFunction)getStatusCodes, METH_NOARGS, ssllabs_docs},
             {NULL, NULL, 0, NULL}
     };
 
