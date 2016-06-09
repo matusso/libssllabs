@@ -4,7 +4,6 @@
 
 #include "../../include/ssllabs/ssllabs.h"
 #include <python2.7/Python.h>
-#include <iostream>
 
 extern "C" {
     static ssllabs::SSLlabs sslLabs;
