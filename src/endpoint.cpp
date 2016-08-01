@@ -107,15 +107,15 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("key") && obj["key"].IsObject()) {
-
+            Endpoint::parseKey(obj["key"].GetObject(), endpoint.Details.Key);
         }
 
         if (obj.HasMember("cert") && obj["cert"].IsObject()) {
-
+            Endpoint::parseCert(obj["cert"].GetObject(), endpoint.Details.Cert);
         }
 
         if (obj.HasMember("chain") && obj["chain"].IsObject()) {
-
+            Endpoint::parseChain(obj["chain"].GetObject(), endpoint.Details.Chain);
         }
 
         if (obj.HasMember("protocols") && obj["protocols"].IsArray()) {
@@ -123,7 +123,7 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("suites") && obj["suites"].IsObject()) {
-
+            Endpoint::parseLabsSuites(obj["suites"].GetObject(), endpoint.Details.Suites);
         }
 
         if (obj.HasMember("serverSignature") && obj["serverSignature"].IsString()) {
@@ -260,7 +260,15 @@ namespace ssllabs {
             Endpoint::parseHpkpPolicy(obj["hpkpRoPolicy"].GetObject(), endpoint.Details.HpkpRoPolicy);
         }
 
-        // * TODO: need to parse drownHosts && drown..;
+        // * TODO: need to parse drownHosts;
+
+        if (obj.HasMember("drownErrors") && obj["drownErrors"].IsBool()) {
+            endpoint.Details.DrownErrors = obj["drownErrors"].GetBool();
+        }
+
+        if (obj.HasMember("drownVulnerable") && obj["drownVulnerable"].IsBool()) {
+            endpoint.Details.DrownVulnerable = obj["drownVulnerable"].GetBool();
+        }
 
         return;
     }
@@ -313,5 +321,193 @@ namespace ssllabs {
         return;
     }
 
+    void Endpoint::parseLabsSuites(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj, labsSuites_t &labsSuites) {
+
+    }
+
+    void Endpoint::parseKey(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj, labsKey_t &labsKey) {
+
+        if (obj.HasMember("size") && obj["size"].IsInt()) {
+            labsKey.Size = obj["size"].GetInt();
+        }
+
+        if (obj.HasMember("alg") && obj["alg"].IsString()) {
+            labsKey.Algorithm.assign(obj["alg"].GetString());
+        }
+
+        if (obj.HasMember("debianFlaw") && obj["debianFlaw"].IsBool()) {
+            labsKey.DebianFlaw = obj["debianFlaw"].GetBool();
+        }
+
+        if (obj.HasMember("strength") && obj["strength"].IsInt()) {
+            labsKey.Strength = obj["strength"].GetInt();
+        }
+    }
+
+    void Endpoint::parseCert(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj, labsCert_t &labsCert) {
+
+        if (obj.HasMember("subject") && obj["subject"].IsString()) {
+            labsCert.Subject.assign(obj["subject"].GetString());
+        }
+
+        if (obj.HasMember("commonNames") && obj["commonNames"].IsArray()) {
+
+        }
+
+        if (obj.HasMember("altNames") && obj["altNames"].IsArray()) {
+
+        }
+
+        if (obj.HasMember("notBefore") && obj["notBefore"].IsInt64()) {
+            labsCert.NotBefore = obj["notBefore"].GetInt64();
+        }
+
+        if (obj.HasMember("notAfter") && obj["notAfter"].IsInt64()) {
+            labsCert.NotAfter = obj["notAfter"].GetInt64();
+        }
+
+        if (obj.HasMember("issuerSubject") && obj["issuerSubject"].IsString()) {
+            labsCert.IssuerSubject.assign(obj["issuerSubject"].GetString());
+        }
+
+        if (obj.HasMember("issuerLabel") && obj["issuerLabel"].IsString()) {
+            labsCert.IssuerLabel.assign(obj["issuerLabel"].GetString());
+        }
+
+        if (obj.HasMember("sigAlg") && obj["sigAlg"].IsString()) {
+            labsCert.SigAlg.assign(obj["sigAlg"].GetString());
+        }
+
+        if (obj.HasMember("revocationInfo") && obj["revocationInfo"].IsInt()) {
+            labsCert.RevocationInfo = obj["revocationInfo"].GetInt();
+        }
+
+        if (obj.HasMember("crlURIs") && obj["crlURIs"].IsArray()) {
+
+        }
+
+        if (obj.HasMember("ocspURIs") && obj["ocspURIs"].IsArray()) {
+
+        }
+
+        if (obj.HasMember("revocationStatus") && obj["revocationStatus"].IsInt()) {
+            labsCert.RevocationStatus = obj["revocationStatus"].GetInt();
+        }
+
+        if (obj.HasMember("crlRevocationStatus") && obj["crlRevocationStatus"].IsInt()) {
+            labsCert.CrlRevocationStatus = obj["crlRevocationStatus"].GetInt();
+        }
+
+        if (obj.HasMember("ocspRevocationStatus") && obj["ocspRevocationStatus"].IsInt()) {
+            labsCert.OcspRevocationStatus = obj["ocspRevocationStatus"].GetInt();
+        }
+
+        if (obj.HasMember("sgc") && obj["sgc"].IsInt()) {
+            labsCert.Sgc = obj["sgc"].GetInt();
+        }
+
+        if (obj.HasMember("issues") && obj["issues"].IsInt()) {
+            labsCert.Issues = obj["issues"].GetInt();
+        }
+
+        if (obj.HasMember("sct") && obj["sct"].IsBool()) {
+            labsCert.Sct = obj["sct"].GetBool();
+        }
+
+        if (obj.HasMember("mustStaple") && obj["mustStaple"].IsInt()) {
+            labsCert.MustStaple = obj["mustStaple"].GetInt();
+        }
+
+        if (obj.HasMember("sha1Hash") && obj["sha1Hash"].IsString()) {
+            labsCert.Sha1Hash.assign(obj["sha1Hash"].GetString());
+        }
+
+        if (obj.HasMember("pinSha256") && obj["pinSha256"].IsString()) {
+            labsCert.PinSha256.assign(obj["pinSha256"].GetString());
+        }
+
+    }
+
+    void Endpoint::parseChain(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj, labsChain_t &labsChain) {
+        labsChainCert_t labsChainCert;
+
+        if (obj.HasMember("issues") && obj["issues"].IsInt()) {
+            labsChain.Issues = obj["issues"].GetInt();
+        }
+
+        if (obj.HasMember("subject") && obj["subject"].IsString()) {
+            labsChainCert.Subject.assign(obj["subject"].GetString());
+        }
+
+        if (obj.HasMember("label") && obj["label"].IsString()) {
+            labsChainCert.Label.assign(obj["label"].GetString());
+        }
+
+        if (obj.HasMember("notBefore") && obj["notBefore"].IsInt64()) {
+            labsChainCert.NotBefore = obj["notBefore"].GetInt64();
+        }
+
+        if (obj.HasMember("notAfter") && obj["notAfter"].IsInt64()) {
+            labsChainCert.NotAfter = obj["notAfter"].GetInt64();
+        }
+
+        if (obj.HasMember("issuerSubject") && obj["issuerSubject"].IsString()) {
+            labsChainCert.IssuerSubject.assign(obj["issuerSubject"].GetString());
+        }
+
+        if (obj.HasMember("issuerLabel") && obj["issuerLabel"].IsString()) {
+            labsChainCert.IssuerLabel.assign(obj["issuerLabel"].GetString());
+        }
+
+        if (obj.HasMember("sigAlg") && obj["sigAlg"].IsString()) {
+            labsChainCert.SigAlg.assign(obj["sigAlg"].GetString());
+        }
+
+        if (obj.HasMember("issues") && obj["issues"].IsInt()) {
+            labsChainCert.Issues = obj["issues"].GetInt();
+        }
+
+        if (obj.HasMember("keyAlg") && obj["keyAlg"].IsString()) {
+            labsChainCert.KeyAlg.assign(obj["keyAlg"].GetString());
+        }
+
+        if (obj.HasMember("keySize") && obj["keySize"].IsInt()) {
+            labsChainCert.KeySize = obj["keySize"].GetInt();
+        }
+
+        if (obj.HasMember("keyStrength") && obj["keyStrength"].IsInt()) {
+            labsChainCert.KeyStrength = obj["keyStrength"].GetInt();
+        }
+
+        if (obj.HasMember("revocationStatus") && obj["revocationStatus"].IsInt()) {
+            labsChainCert.RevocationStatus = obj["revocationStatus"].GetInt();
+        }
+
+        if (obj.HasMember("crlRevocationStatus") && obj["crlRevocationStatus"].IsInt()) {
+            labsChainCert.CrlRevocationStatus = obj["crlRevocationStatus"].GetInt();
+        }
+
+        if (obj.HasMember("ocspRevocationStatus") && obj["ocspRevocationStatus"].IsInt()) {
+            labsChainCert.OcspRevocationStatus = obj["ocspRevocationStatus"].GetInt();
+        }
+
+        if (obj.HasMember("sha1Hash") && obj["sha1Hash"].IsString()) {
+            labsChainCert.Sha1Hash.assign(obj["sha1Hash"].GetString());
+        }
+
+        if (obj.HasMember("pinSha256") && obj["pinSha256"].IsString()) {
+            labsChainCert.PinSha256.assign(obj["pinSha256"].GetString());
+        }
+
+        if (obj.HasMember("raw") && obj["raw"].IsString()) {
+            labsChainCert.Raw.assign(obj["raw"].GetString());
+        }
+
+        labsChain.Certs.push_back(labsChainCert);
+    }
 
 }

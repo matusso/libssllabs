@@ -51,6 +51,9 @@ namespace ssllabs {
         std::string ValidationType;
         int Issues;
         bool Sct;
+        int MustStaple;
+        std::string Sha1Hash;
+        std::string PinSha256;
     } labsCert_t;
 
     typedef struct labsChainCert {
@@ -68,6 +71,8 @@ namespace ssllabs {
         int RevocationStatus;
         int CrlRevocationStatus;
         int OcspRevocationStatus;
+        std::string Sha1Hash;
+        std::string PinSha256;
         std::string Raw;
     } labsChainCert_t;
 
@@ -203,6 +208,9 @@ namespace ssllabs {
         std::vector<labsHstsPreload_t> HstsPreloads;
         labsHpkpPolicy_t HpkpPolicy;
         labsHpkpPolicy_t HpkpRoPolicy;
+//        std::vector<> DrownHosts;
+        bool DrownErrors;
+        bool DrownVulnerable;
     } labsEndpointDetails_t;
 
     typedef struct labsEndpoint {
