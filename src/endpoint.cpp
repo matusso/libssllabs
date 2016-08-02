@@ -324,6 +324,21 @@ namespace ssllabs {
     void Endpoint::parseLabsSuites(const rapidjson::GenericValue<rapidjson::UTF8<char>,
             rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj, labsSuites_t &labsSuites) {
 
+
+        if (obj.HasMember("preference") && obj["preference"].IsBool()) {
+            labsSuites.Preference = obj["preference"].GetBool();
+        }
+
+        if (obj.HasMember("list") && obj["list"].IsArray()) {
+            labsSuite_t labsSuite;
+            for (auto itr = obj["list"].GetArray().Begin(); itr != obj["list"].GetArray().End(); itr++) {
+                parseSuitesList(itr->GetObject(), labsSuite);
+                labsSuites.List.push_back(labsSuite);
+            }
+        }
+
+
+
     }
 
     void Endpoint::parseKey(const rapidjson::GenericValue<rapidjson::UTF8<char>,
@@ -433,11 +448,25 @@ namespace ssllabs {
 
     void Endpoint::parseChain(const rapidjson::GenericValue<rapidjson::UTF8<char>,
             rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj, labsChain_t &labsChain) {
-        labsChainCert_t labsChainCert;
 
         if (obj.HasMember("issues") && obj["issues"].IsInt()) {
             labsChain.Issues = obj["issues"].GetInt();
         }
+
+        if (obj.HasMember("certs") && obj["certs"].IsArray()) {
+            labsChainCert_t labsChainCert;
+
+            for (auto itr = obj["certs"].GetArray().Begin(); itr != obj["certs"].GetArray().End(); itr++) {
+                parseChainCert(itr->GetObject(), labsChainCert);
+                labsChain.Certs.push_back(labsChainCert);
+            }
+        }
+
+    }
+
+    void Endpoint::parseChainCert(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj,
+                                  labsChainCert_t &labsChainCert) {
 
         if (obj.HasMember("subject") && obj["subject"].IsString()) {
             labsChainCert.Subject.assign(obj["subject"].GetString());
@@ -506,8 +535,37 @@ namespace ssllabs {
         if (obj.HasMember("raw") && obj["raw"].IsString()) {
             labsChainCert.Raw.assign(obj["raw"].GetString());
         }
-
-        labsChain.Certs.push_back(labsChainCert);
     }
 
+    void Endpoint::parseSuitesList(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj, labsSuite_t &labsSuite) {
+
+        if (obj.HasMember("id") && obj["id"].IsInt()) {
+            labsSuite.Id = obj["id"].GetInt();
+        }
+
+        if (obj.HasMember("name") && obj["name"].IsString()) {
+            labsSuite.Name.assign(obj["name"].GetString());
+        }
+
+        if (obj.HasMember("cipherStrength") && obj["cipherStrength"].IsInt()) {
+            labsSuite.CipherStrength = obj["cipherStrength"].GetInt();
+        }
+
+        if (obj.HasMember("dhStrength") && obj["dhStrength"].IsInt()) {
+            labsSuite.DhStrength = obj["dhStrength"].GetInt();
+        }
+
+        if (obj.HasMember("dhP") && obj["dhP"].IsInt()) {
+            labsSuite.DhP = obj["dhP"].GetInt();
+        }
+
+        if (obj.HasMember("dhG") && obj["dhG"].IsInt()) {
+            labsSuite.DhG = obj["dhG"].GetInt();
+        }
+
+        if (obj.HasMember("dhYs") && obj["dhYs"].IsInt()) {
+            labsSuite.DhYs = obj["dhYs"].GetInt();
+        }
+    }
 }

@@ -40,6 +40,12 @@ namespace ssllabs {
 
         static void parseChain(const rapidjson::GenericValue<rapidjson::UTF8<char>,
                 rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsChain_t &labsChain);
+
+        static void parseChainCert(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+                rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsChainCert_t &labsChainCert);
+
+        static void parseSuitesList(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+                rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsSuite_t &labsSuite);
     };
 
 }
