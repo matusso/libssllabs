@@ -46,6 +46,18 @@ namespace ssllabs {
 
         static void parseSuitesList(const rapidjson::GenericValue<rapidjson::UTF8<char>,
                 rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsSuite_t &labsSuite);
+
+        static void parseProtocosls(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+                rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsProtocol_t &labsProtocol);
+
+        static void parseSimulationDetails(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+                rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsSimDetails_t &labsSimDetails);
+
+        static void parseSimulationResults(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+                rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsSimulation_t &labsSimulation);
+
+        static void parseSimulationClient(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+                rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject & obj, labsSimClient_t &labsSimClient);
     };
 
 }

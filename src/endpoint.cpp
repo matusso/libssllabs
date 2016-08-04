@@ -119,7 +119,12 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("protocols") && obj["protocols"].IsArray()) {
+            labsProtocol_t labsProtocol;
 
+            for (auto itr = obj["protocols"].GetArray().Begin(); itr != obj["protocols"].GetArray().End(); itr++) {
+                parseProtocosls(itr->GetObject(), labsProtocol);
+                endpoint.Details.Protocols.push_back(labsProtocol);
+            }
         }
 
         if (obj.HasMember("suites") && obj["suites"].IsObject()) {
@@ -193,7 +198,7 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("sims") && obj["sims"].IsObject()) {
-
+            parseSimulationDetails(obj["sims"].GetObject(), endpoint.Details.Sims);
         }
 
         if (obj.HasMember("heartbleed") && obj["heartbleed"].IsBool()) {
@@ -229,7 +234,11 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("dhPrimes") && obj["dhPrimes"].IsArray()) {
-
+            for (auto itr = obj["dhPrimes"].GetArray().Begin(); itr != obj["dhPrimes"].GetArray().End(); itr++) {
+                if (itr->IsString()) {
+                    endpoint.Details.DhPrimes.push_back(itr->GetString());
+                }
+            }
         }
 
         if (obj.HasMember("dhUsesKnownPrimes") && obj["dhUsesKnownPrimes"].IsInt()) {
@@ -336,9 +345,6 @@ namespace ssllabs {
                 labsSuites.List.push_back(labsSuite);
             }
         }
-
-
-
     }
 
     void Endpoint::parseKey(const rapidjson::GenericValue<rapidjson::UTF8<char>,
@@ -369,11 +375,19 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("commonNames") && obj["commonNames"].IsArray()) {
-
+            for (auto itr = obj["commonNames"].GetArray().Begin(); itr != obj["commonNames"].GetArray().End(); itr++) {
+                if (itr->IsString()) {
+                    labsCert.CommonNames.push_back(itr->GetString());
+                }
+            }
         }
 
         if (obj.HasMember("altNames") && obj["altNames"].IsArray()) {
-
+            for (auto itr = obj["altNames"].GetArray().Begin(); itr != obj["altNames"].GetArray().End(); itr++) {
+                if (itr->IsString()) {
+                    labsCert.AltNames.push_back(itr->GetString());
+                }
+            }
         }
 
         if (obj.HasMember("notBefore") && obj["notBefore"].IsInt64()) {
@@ -401,11 +415,19 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("crlURIs") && obj["crlURIs"].IsArray()) {
-
+            for (auto itr = obj["crlURIs"].GetArray().Begin(); itr != obj["crlURIs"].GetArray().End(); itr++) {
+                if (itr->IsString()) {
+                    labsCert.CrlURIs.push_back(itr->GetString());
+                }
+            }
         }
 
         if (obj.HasMember("ocspURIs") && obj["ocspURIs"].IsArray()) {
-
+            for (auto itr = obj["ocspURIs"].GetArray().Begin(); itr != obj["ocspURIs"].GetArray().End(); itr++) {
+                if (itr->IsString()) {
+                    labsCert.OcspURIs.push_back(itr->GetString());
+                }
+            }
         }
 
         if (obj.HasMember("revocationStatus") && obj["revocationStatus"].IsInt()) {
@@ -567,5 +589,84 @@ namespace ssllabs {
         if (obj.HasMember("dhYs") && obj["dhYs"].IsInt()) {
             labsSuite.DhYs = obj["dhYs"].GetInt();
         }
+    }
+
+    void Endpoint::parseProtocosls(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj, labsProtocol_t &labsProtocol) {
+
+        if (obj.HasMember("id") && obj["id"].IsInt()) {
+            labsProtocol.Id = obj["id"].GetInt();
+        }
+
+        if (obj.HasMember("name") && obj["name"].IsString()) {
+            labsProtocol.Name.assign(obj["name"].GetString());
+        }
+
+        if (obj.HasMember("version") && obj["version"].IsString()) {
+            labsProtocol.Version.assign(obj["version"].GetString());
+        }
+    }
+
+    void Endpoint::parseSimulationResults(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj,
+                                    labsSimulation_t &labsSimulation) {
+
+        if (obj.HasMember("errorCode") && obj["errorCode"].IsInt()) {
+            labsSimulation.ErrorCode = obj["errorCode"].GetInt();
+        }
+
+        if (obj.HasMember("attempts") && obj["attempts"].IsInt()) {
+            labsSimulation.Attempts = obj["attempts"].GetInt();
+        }
+
+        if (obj.HasMember("protocolId") && obj["protocolId"].IsInt()) {
+            labsSimulation.ProtocolId = obj["protocolId"].GetInt();
+        }
+
+        if (obj.HasMember("suiteId") && obj["suiteId"].IsInt()) {
+            labsSimulation.SuiteId = obj["suiteId"].GetInt();
+        }
+
+        if (obj.HasMember("client") && obj["client"].IsObject()) {
+            parseSimulationClient(obj["client"].GetObject(), labsSimulation.Client);
+        }
+    }
+
+    void Endpoint::parseSimulationClient(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj,
+                                         labsSimClient_t &labsSimClient) {
+
+        if (obj.HasMember("id") && obj["id"].IsInt()) {
+            labsSimClient.Id = obj["id"].GetInt();
+        }
+
+        if (obj.HasMember("name") && obj["name"].IsString()) {
+            labsSimClient.Name.assign(obj["name"].GetString());
+        }
+
+        if (obj.HasMember("version") && obj["version"].IsString()) {
+            labsSimClient.Version.assign(obj["version"].GetString());
+        }
+
+        if (obj.HasMember("isReference") && obj["isReference"].IsBool()) {
+            labsSimClient.IsReference = obj["isReference"].GetBool();
+        }
+    }
+
+    void Endpoint::parseSimulationDetails(const rapidjson::GenericValue<rapidjson::UTF8<char>,
+            rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::ConstObject &obj,
+                                          labsSimDetails_t &labsSimDetails) {
+
+            if (obj.HasMember("results") && obj["results"].IsArray()) {
+                for (auto itr = obj["results"].GetArray().Begin(); itr != obj["results"].GetArray().End(); itr++) {
+                    labsSimulation_t labsSimulation;
+
+                    if (itr->IsObject()) {
+                        parseSimulationResults(itr->GetObject(), labsSimulation);
+                        labsSimDetails.Results.push_back(labsSimulation);
+                    }
+                }
+            }
+
     }
 }

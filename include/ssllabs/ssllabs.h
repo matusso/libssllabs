@@ -5,8 +5,8 @@
 #ifndef LIBSSLLABS_SSLLABS_H
 #define LIBSSLLABS_SSLLABS_H
 
-#define SSLLABS_API_URL "https://api.ssllabs.com/api/v2"
-#define SSLLABS_AGENT   "libssllabs/1.0"
+const char SSLLABS_API_URL[] = "https://api.ssllabs.com/api/v2";
+const char SSLLABS_AGENT[] = "libssllabs/1.0";
 
 #include <vector>
 #include <map>
