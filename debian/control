@@ -1,0 +1,27 @@
+Source: libssllabs
+Maintainer: Matus Bursa <burso@burso.eu>
+Section: misc
+Priority: optional
+Standards-Version: 0.3.1
+Build-Depends: debhelper (>= 9)
+
+Package: ssllabs
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: ssl analyze tool based on ssllabs-api from Qualys
+ SSL Labs is a collection of documents, tools and thoughts related to SSL.
+ It's an attempt to better understand how SSL is deployed, and an attempt to make it better.
+
+Package: libssllabs
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: C++ ssllabs library based on ssllabs-api from Qualys
+ SSL Labs is a collection of documents, tools and thoughts related to SSL.
+ It's an attempt to better understand how SSL is deployed, and an attempt to make it better.
+
+Package: libssllabs-dev
+Architecture: any
+Depends: libssllabs (= 0.3.1)
+Description: C++ ssllabs headers based on ssllabs-api from Qualys
+ SSL Labs is a collection of documents, tools and thoughts related to SSL.
+ It's an attempt to better understand how SSL is deployed, and an attempt to make it better.

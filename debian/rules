@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+# You must remove unused comment lines for the released package.
+export DH_VERBOSE = 1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+%:
+	dh $@ --
+
+override_dh_auto_install:
+	dh_auto_install -O--
+	install -d debian/ssllabs
+	install -d debian/libssllabs
+	install -d debian/libssllabs-dev
+	cd obj-x86_64-linux-gnu && make -j1 install DESTDIR=debian/tmp AM_UPDATE_INFO_DIR=no
+	install -d debian/ssllabs/usr/bin
+	install -p debian/tmp/usr/bin/ssllabs debian/ssllabs/usr/bin
+	install -d debian/libssllabs/usr/lib/ssllabs
+	install -p debian/tmp/usr/lib/ssllabs/* debian/libssllabs/usr/lib/ssllabs
+	install -d debian/libssllabs-dev/usr/include/ssllabs
+	install -p debian/tmp/usr/include/ssllabs/* debian/libssllabs-dev/usr/include/ssllabs

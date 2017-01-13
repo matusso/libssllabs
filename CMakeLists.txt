@@ -21,7 +21,3 @@ set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/include CACHE PATH "Install dir 
 
 add_subdirectory(include)
 add_subdirectory(src)
-
-if (NOT WIN32)
-    add_subdirectory(python)
-endif ()
