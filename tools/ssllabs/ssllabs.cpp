@@ -6,7 +6,6 @@ using namespace ssllabs;
 
 int main(int argc, char** argv) {
     ssllabs::SSLlabs ssllabsObject;
-    std::string data;
     labsReport_t report;
 
     ssllabsObject.analyze("www.google.com", report);
