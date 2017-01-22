@@ -118,14 +118,14 @@ namespace ssllabs {
             Endpoint::parseChain(obj["chain"].GetObject(), endpoint.Details.Chain);
         }
 
-//        if (obj.HasMember("protocols") && obj["protocols"].IsArray()) {
-//            labsProtocol_t labsProtocol;
-//
-//            for (auto itr = obj["protocols"].GetArray().Begin(); itr != obj["protocols"].GetArray().End(); itr++) {
-//                parseProtocosls(itr->GetObject(), labsProtocol);
-//                endpoint.Details.Protocols.push_back(labsProtocol);
-//            }
-//        }
+        if (obj.HasMember("protocols") && obj["protocols"].IsArray()) {
+            labsProtocol_t labsProtocol;
+
+            for (auto itr = obj["protocols"].GetArray().Begin(); itr != obj["protocols"].GetArray().End(); itr++) {
+                parseProtocosls(itr->GetObject(), labsProtocol);
+                endpoint.Details.Protocols.push_back(labsProtocol);
+            }
+        }
 
         if (obj.HasMember("suites") && obj["suites"].IsObject()) {
             Endpoint::parseLabsSuites(obj["suites"].GetObject(), endpoint.Details.Suites);
@@ -233,13 +233,13 @@ namespace ssllabs {
             endpoint.Details.HasSct = obj["hasSct"].GetInt();
         }
 
-//        if (obj.HasMember("dhPrimes") && obj["dhPrimes"].IsArray()) {
-//            for (auto itr = obj["dhPrimes"].GetArray().Begin(); itr != obj["dhPrimes"].GetArray().End(); itr++) {
-//                if (itr->IsString()) {
-//                    endpoint.Details.DhPrimes.push_back(itr->GetString());
-//                }
-//            }
-//        }
+        if (obj.HasMember("dhPrimes") && obj["dhPrimes"].IsArray()) {
+            for (auto itr = obj["dhPrimes"].GetArray().Begin(); itr != obj["dhPrimes"].GetArray().End(); itr++) {
+                if (itr->IsString()) {
+                    endpoint.Details.DhPrimes.push_back(itr->GetString());
+                }
+            }
+        }
 
         if (obj.HasMember("dhUsesKnownPrimes") && obj["dhUsesKnownPrimes"].IsInt()) {
             endpoint.Details.DhUsesKnownPrimes = obj["dhUsesKnownPrimes"].GetInt();
