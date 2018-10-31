@@ -19,3 +19,6 @@ need to install following libraries
 ```
 ~# apt-get install cmake libcurl4-openssl-dev
 ```
+
+Also you can buy me a coffee
+[![Coffee](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://buymeacoff.ee/burso)
