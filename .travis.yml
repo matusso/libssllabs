@@ -2,5 +2,7 @@ language: cpp
 before_install:
   - sudo apt-get update
   - sudo apt-get -y install cmake libcurl4-openssl-dev git
-  - git submodule init
-  - git submodule update
+
+script:
+  - cmake .
+  - make -j 4
