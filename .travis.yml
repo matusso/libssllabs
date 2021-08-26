@@ -3,19 +3,32 @@ compiler:
   - gcc
   - clang
 
-os:
-  - linux
-  - osx
-  - freebsd
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          packages:
+            - cmake
+            - libcurl4-openssl-dev
 
-osx_image: xcode12.5
+    - os: osx
+      osx_image: xcode12.5
+
+    - os: freebsd
+      addons:
+        pkg:
+          - cmake
+          - curl
+        env:
+          - IGNORE_OSVERSION=yes
+
+    - os: windows
 
 before_install:
   - echo $LANG
   - echo $LC_ALL
   - if [ "$TRAVIS_OS_NAME" == "osx"     ]; then brew update; brew unlink cmake; brew install cmake curl; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux"   ]; then sudo apt-get update; sudo apt-get -y install cmake libcurl4-openssl-dev; fi
-  - if [ "$TRAVIS_OS_NAME" == "freebsd" ]; then sudo pkg update; sudo pkg install cmake curl; fi
 
 script:
   - cmake .
