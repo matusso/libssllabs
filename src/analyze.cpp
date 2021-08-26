@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "../include/ssllabs/ssllabs.h"
-#include "../include/rapidjson/document.h"
+#include "../include/rapidjson/include/rapidjson/document.h"
 #include "endpoint.h"
 
 namespace ssllabs {

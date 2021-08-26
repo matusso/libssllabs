@@ -6,7 +6,7 @@
 #define SSLLABS_ENDPOINT_H
 
 #include "../include/ssllabs/ssllabs.h"
-#include "../include/rapidjson/document.h"
+#include "../include/rapidjson/include/rapidjson/document.h"
 
 namespace ssllabs {
     class Endpoint {
