@@ -38,5 +38,10 @@ before_script:
     fi
 
 script:
-  - cmake .
-  - make -j 4
+  - if [ "$TRAVIS_OS_NAME" == "windows" ]; then
+      cmake -S . -B build
+      cmake --build build
+    else
+      cmake .
+      make -j 4
+    fi
