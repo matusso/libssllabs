@@ -39,6 +39,7 @@ before_script:
 
 script:
   - if [ "$TRAVIS_OS_NAME" == "windows" ]; then
+      cd ../..;
       cmake -S . -B build;
       cmake --build build;
     else
