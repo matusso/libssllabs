@@ -16,6 +16,7 @@ jobs:
         pkg:
           - cmake
           - curl
+        env:
 
     - os: windows
 
@@ -27,8 +28,8 @@ before_install:
 
 before_script:
   - if [ "$TRAVIS_OS_NAME" == "windows" ]; then 
-      mkdir c:\library;
-      cd c:\library;
+      mkdir lib;
+      cd lib;
       wget --no-check-certificate "https://curl.haxx.se/download/curl-7.48.0.zip";
       7z x curl-7.48.0.zip;
       cd curl-7.48.0;
