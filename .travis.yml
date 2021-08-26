@@ -1,9 +1,5 @@
 language: cpp
-compiler:
-  - gcc
-  - clang
-
-matrix:
+jobs:
   include:
     - os: linux
       addons:
@@ -20,8 +16,6 @@ matrix:
         pkg:
           - cmake
           - curl
-        env:
-          - IGNORE_OSVERSION=yes
 
     - os: windows
 
@@ -32,5 +26,5 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "windows" ]; then choco install -y make; fi
 
 script:
-  - cmake .
-  - make -j 4
+  - cmake -S . -B build
+  - cmake --build build
