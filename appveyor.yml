@@ -35,5 +35,7 @@ install:
 
 build_script:
   - ps: cd "c:\projects\libssllabs"
+  - cmd: git submodule init
+  - cmd: git submodule update
   - cmd: cmake .
   - cmd: cmake --build .
