@@ -27,20 +27,20 @@ before_install:
 
 before_script:
   - if [ "$TRAVIS_OS_NAME" == "windows" ]; then 
-      mkdir c:\library
-      cd c:\library
-      wget --no-check-certificate "https://curl.haxx.se/download/curl-7.48.0.zip"
-      7z x curl-7.48.0.zip -o curl
-      cd curl
-      cmake .
-      cmake --build .
+      mkdir c:\library;
+      cd c:\library;
+      wget --no-check-certificate "https://curl.haxx.se/download/curl-7.48.0.zip";
+      7z x curl-7.48.0.zip -o curl;
+      cd curl;
+      cmake .;
+      cmake --build .;
     fi
 
 script:
   - if [ "$TRAVIS_OS_NAME" == "windows" ]; then
-      cmake -S . -B build
-      cmake --build build
+      cmake -S . -B build;
+      cmake --build build;
     else
-      cmake .
-      make -j 4
+      cmake .;
+      make -j 4;
     fi
