@@ -1,15 +1,17 @@
-name: Build
+name: "Sonarcloud"
+
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     types: [opened, synchronize, reopened]
   schedule:                # This trigger is here only to make sure
     - cron: '17 0 * * SUN' # the example itself doesn't become stale
+
 jobs:
   build:
-    name: Build
+    name: "Sonarcloud"
     runs-on: ubuntu-latest
     env:
       SONAR_SCANNER_VERSION: 4.6.1.2450 # Find the latest version in the "Linux" link on this page:
