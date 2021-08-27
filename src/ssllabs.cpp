@@ -49,7 +49,8 @@ namespace ssllabs {
                 && CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L))
                 && CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout))
                 && CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_USERAGENT, SSLLABS_AGENT))
-                && CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_URL, url.c_str()))) {
+                && CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_URL, url.c_str()))
+                && CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2))) {
 
                 if ((code = curl_easy_perform(curl)) != CURLE_OK) {
                     std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(code) << "\n";
@@ -60,7 +61,4 @@ namespace ssllabs {
 
         return code;
     }
-
-
-
 }
