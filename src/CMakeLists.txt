@@ -2,7 +2,7 @@ set(SOURCE_FILES ssllabs.cpp getInfo.cpp analyze.cpp endpoint.cpp)
 
 # linked libraries
 if (WIN32)
-    set(LIBS ${LIBS} libcurl_imp)
+    set(LIBS ${LIBS} libcurl-d_imp)
 else()
     set(LIBS ${LIBS} curl)
 endif()
