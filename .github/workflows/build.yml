@@ -50,6 +50,8 @@ jobs:
       - name: Run build-wrapper
         run: |
           sudo apt install cmake libcurl4-openssl-dev
+          git submodule init
+          git submodule update
           mkdir build
           cmake -S . -B build
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release
