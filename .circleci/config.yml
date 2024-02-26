@@ -5,7 +5,9 @@ jobs:
       - image: gcc:latest
     steps:
       - checkout
-      - run: apt update && apt install cmake libcurl4-openssl-dev -y
+      - run: apt update && apt install -y cmake libcurl4-openssl-dev git
+      - run: git submodule sync
+      - run: git submodule update --init
       - run: mkdir -p build 
       - run: cd build && cmake ..
       - run: cd build && make
