@@ -5,15 +5,27 @@ jobs:
       - image: gcc:latest
     steps:
       - checkout
-      - run: apt update && apt install -y cmake libcurl4-openssl-dev git
-      - run: git submodule sync
-      - run: git submodule update --init
+      - run: 
+          name: Install dependencies and build project
+          command: apt update && apt install -y cmake libcurl4-openssl-dev git
+      - run: 
+          name: Git submodules sync
+          command: git submodule sync && git submodule update --init
       - run: mkdir -p build 
-      - run: cd build && cmake ..
-      - run: cd build && make
+      - run: 
+          name: Build
+          command: cd build && cmake .. && make
+      - sonarcloud/scan
+
+orbs:
+  sonarcloud: sonarsource/sonarcloud@2.0.0
 
 workflows:
-  version: 2
+  main:
+    jobs:
+      - build_gcc_latest:
+          context: SonarCloud
   build_and_test:
     jobs:
       - build_gcc_latest
+    
