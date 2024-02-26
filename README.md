@@ -13,6 +13,7 @@ Qualys SSL Labs: https://www.ssllabs.com/
 
 libssllabs communicates with SSLLabs via API <br>
 official documentation: https://github.com/ssllabs/ssllabs-scan/blob/stable/ssllabs-api-docs.md
+added circle-ci with sonarcloud
 
 ###### requirements
 need to install following libraries
