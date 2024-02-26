@@ -6,9 +6,9 @@ jobs:
     steps:
       - checkout
       - run: apt update && apt install cmake libcurl4-openssl-dev -y
-      - run: mkdir -p build && cd build
-      - run: cmake ..
-      - run: make
+      - run: mkdir -p build 
+      - run: cd build && cmake ..
+      - run: cd build && make
 
 workflows:
   version: 2
