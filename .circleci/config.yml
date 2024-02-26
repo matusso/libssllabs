@@ -5,7 +5,7 @@ jobs:
       - image: gcc:latest
     steps:
       - checkout
-      - run: choco install cmake -y
+      - run: apt install cmake -y
       - run: mkdir -p build && cd build
       - run: cmake ..
       - run: make
