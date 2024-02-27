@@ -20,9 +20,6 @@ jobs:
             unzip -o build-wrapper-linux-x86.zip
             cmake ..
             build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_directory make
-      - run:
-          name: Create build_wrapper_directory
-          command: mkdir -p build_wrapper_directory
       - sonarcloud/scan
 
 orbs:
