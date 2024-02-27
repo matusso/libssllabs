@@ -10,11 +10,16 @@ jobs:
           command: apt update && apt install -y cmake libcurl4-openssl-dev git
       - run: 
           name: Git submodules sync
-          command: git submodule sync && git submodule update --init
+          command: git submodule sync && git s  ubmodule update --init
       - run: mkdir -p build 
-      - run: 
+      - run:
           name: Build
-          command: cd build && cmake .. && make
+          command: |
+            cd build
+            curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+            unzip -o build-wrapper-linux-x86.zip
+            cmake ..
+            build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir build_wrapper_directory make
       - run:
           name: Create build_wrapper_directory
           command: mkdir -p build_wrapper_directory
