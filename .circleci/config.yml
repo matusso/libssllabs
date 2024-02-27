@@ -15,6 +15,9 @@ jobs:
       - run: 
           name: Build
           command: cd build && cmake .. && make
+      - run:
+          name: Create build_wrapper_directory
+          command: mkdir -p build_wrapper_directory
       - sonarcloud/scan
 
 orbs:
