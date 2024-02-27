@@ -26,7 +26,7 @@ orbs:
   sonarcloud: sonarsource/sonarcloud@2.0.0
 
 workflows:
-  build_and_test:
+  master:
     jobs:
       - build_gcc_latest:
           context: SonarCloud
