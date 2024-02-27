@@ -10,7 +10,7 @@ jobs:
           command: apt update && apt install -y cmake libcurl4-openssl-dev git
       - run: 
           name: Git submodules sync
-          command: git submodule sync && git s  ubmodule update --init
+          command: git submodule sync && git submodule update --init
       - run: mkdir -p build 
       - run:
           name: Build
