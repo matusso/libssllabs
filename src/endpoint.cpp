@@ -7,14 +7,14 @@
 
 namespace ssllabs {
 
-    int SSLlabs::getEndpointData(const std::string domain, const std::string endpoint, const std::string &data) {
+    int SSLlabs::getEndpointData(const std::string &domain, const std::string &endpoint, const std::string &data) {
         std::string command = {};
 
         command = "/getEndpointData?host=" + domain + "&s=" + endpoint;
         return curl_read(command, data);
     }
 
-    int SSLlabs::getEndpointData(const std::string domain, const std::string endpoint, labsEndpoint_t &data) {
+    int SSLlabs::getEndpointData(const std::string &domain, const std::string &endpoint, labsEndpoint_t &data) {
         std::string command = {};
         std::string json = {};
         rapidjson::Document document;

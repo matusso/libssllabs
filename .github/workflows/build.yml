@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - v1.0.1
   pull_request:
     types: [opened, synchronize, reopened]
   schedule:                # This trigger is here only to make sure
