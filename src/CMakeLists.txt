@@ -1,38 +1,46 @@
-set(SOURCE_FILES ssllabs.cpp getInfo.cpp analyze.cpp endpoint.cpp)
+set(SSLLABS_SOURCE_FILES
+    analyze.cpp
+    endpoint.cpp
+    getInfo.cpp
+    parsers.cpp
+    ssllabs.cpp
+)
 
-# linked libraries
-if (WIN32)
-    set(LIBS ${LIBS} libcurl-d_imp)
-else()
-    set(LIBS ${LIBS} curl)
+add_library(ssllabs-shared SHARED ${SSLLABS_SOURCE_FILES})
+add_library(ssllabs-static STATIC ${SSLLABS_SOURCE_FILES})
+
+add_library(ssllabs::shared ALIAS ssllabs-shared)
+add_library(ssllabs::static ALIAS ssllabs-static)
+
+set(SSLLABS_STATIC_OUTPUT_NAME ssllabs)
+if(WIN32)
+    set(SSLLABS_STATIC_OUTPUT_NAME ssllabs-static)
 endif()
 
-# shared library
-add_library(ssllabs-shared SHARED ${SOURCE_FILES})
-set_target_properties(ssllabs-shared PROPERTIES OUTPUT_NAME ssllabs CLEAN_DIRECT_OUTPUT 1)
-target_link_libraries(ssllabs-shared ${LIBS})
-if (WIN32)
-    message(STATUS "Installing Windows library")
-    install(
-            TARGETS ssllabs-shared
-            LIBRARY DESTINATION lib
-            ARCHIVE DESTINATION lib
-            COMPONENT library
+set_target_properties(ssllabs-shared PROPERTIES
+    OUTPUT_NAME ssllabs
+    VERSION ${PROJECT_VERSION}
+    SOVERSION ${PROJECT_VERSION_MAJOR}
+)
+
+set_target_properties(ssllabs-static PROPERTIES
+    OUTPUT_NAME ${SSLLABS_STATIC_OUTPUT_NAME}
+)
+
+foreach(target IN ITEMS ssllabs-shared ssllabs-static)
+    target_compile_features(${target} PUBLIC cxx_std_17)
+    target_include_directories(${target}
+        PUBLIC
+            $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+            $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/include/rapidjson/include
+            ${CMAKE_CURRENT_SOURCE_DIR}
     )
-else()
-    message(STATUS "Installing Unix shared-library")
-    install(TARGETS ssllabs-shared LIBRARY DESTINATION ${LIBRARY_INSTALL_DIR}/ssllabs)
-endif()
+    target_link_libraries(${target} PUBLIC CURL::libcurl)
+endforeach()
 
-
-# static library
-add_library(ssllabs-static STATIC ${SOURCE_FILES})
-set_target_properties(ssllabs-static PROPERTIES OUTPUT_NAME ssllabs CLEAN_DIRECT_OUTPUT 1)
-target_link_libraries(ssllabs-static ${LIBS})
-if (WIN32)
-    message(STATUS "Installing Windows library")
-    install(TARGETS ssllabs-static ARCHIVE DESTINATION ssllabs)
-else()
-    message(STATUS "Installing Unix static-library")
-    install(TARGETS ssllabs-static ARCHIVE DESTINATION ${ARCHIVE_INSTALL_DIR}/ssllabs)
-endif()
+install(TARGETS ssllabs-shared ssllabs-static
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/ssllabs"
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}/ssllabs"
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")

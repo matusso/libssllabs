@@ -1,24 +1,32 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.21)
 
-project(ssllabs)
-set(PROJECT_NAME ssllabs)
-set(PROJECT_VERSION 1.0)
-set(CMAKE_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+project(ssllabs VERSION 1.0.0 LANGUAGES CXX)
 
-if(WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    include_directories(lib/curl-7.78.0/include)
-    link_directories(lib/curl-7.78.0/lib/Debug)
-else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -I/usr/local/include")
-    link_directories(/usr/local/lib)
+include(GNUInstallDirs)
+
+option(SSLLABS_BUILD_TESTS "Build ssllabs unit tests" ${PROJECT_IS_TOP_LEVEL})
+option(SSLLABS_BUILD_TOOLS "Build the ssllabs sample CLI" ${PROJECT_IS_TOP_LEVEL})
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/include/rapidjson/include/rapidjson/document.h")
+    message(FATAL_ERROR "RapidJSON headers are missing. Run `git submodule update --init --recursive` first.")
 endif()
 
-set(CMAKE_INSTALL_PREFIX /usr/local/)
+find_package(CURL REQUIRED)
 
-set(ARCHIVE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib CACHE PATH "Install dir for static libraries")
-set(LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib CACHE PATH "Install dir for shared libraries")
-set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/include CACHE PATH "Install dir for headers")
-
-add_subdirectory(include)
 add_subdirectory(src)
+
+if(SSLLABS_BUILD_TOOLS)
+    add_subdirectory(tools/ssllabs)
+endif()
+
+if(SSLLABS_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
+
+install(DIRECTORY "${PROJECT_SOURCE_DIR}/include/ssllabs"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")

@@ -255,19 +255,19 @@ namespace ssllabs {
 
         long timeout;
 
-        int analyze(const std::string &domain, const std::string &data, bool publish = false,
+        int analyze(const std::string &domain, std::string &data, bool publish = false,
                     bool startNew = false, bool fromCache = false, bool ignoreMismatch = false);
         int analyze(const std::string &domain, labsReport_t &report, bool publish = false,
                     bool startNew = false, bool fromCache = false, bool ignoreMismatch = false);
-        int getInfo(const std::string &data);
+        int getInfo(std::string &data);
         int getInfo(labsInfo_t &info);
-        int getRootCertsRaw(const std::string &certs);
-        int getStatusCodes(const std::string &codes);
-        int getEndpointData(const std::string &domain, const std::string &endpoint, const std::string &data);
+        int getRootCertsRaw(std::string &certs);
+        int getStatusCodes(std::string &codes);
+        int getEndpointData(const std::string &domain, const std::string &endpoint, std::string &data);
         int getEndpointData(const std::string &domain, const std::string &endpoint, labsEndpoint_t &data);
 
     protected:
-        int curl_read(const std::string &command, const std::string &data);
+        int curl_read(const std::string &command, std::string &data);
 
     private:
         void verifyCurlStatus(CURLcode code);
