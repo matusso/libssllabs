@@ -40,15 +40,21 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Download and set up sonar-scanner
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libcurl4-openssl-dev maven unzip
+
+      - name: Download and build sonar-scanner
         env:
-          SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}-linux.zip
+          SONAR_SCANNER_DOWNLOAD_URL: https://github.com/SonarSource/sonar-scanner-cli/archive/refs/tags/${{ env.SONAR_SCANNER_VERSION }}.zip
         run: |
           mkdir -p "$HOME/.sonar"
           curl -sSLo "$HOME/.sonar/sonar-scanner.zip" "${{ env.SONAR_SCANNER_DOWNLOAD_URL }}"
           unzip -o "$HOME/.sonar/sonar-scanner.zip" -d "$HOME/.sonar/"
-          sed -i 's/use_embedded_jre=true/use_embedded_jre=false/' "$HOME/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin/sonar-scanner"
-          echo "$HOME/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> "$GITHUB_PATH"
+          mvn -B -f "$HOME/.sonar/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}/pom.xml" -DskipTests package
+          unzip -o "$HOME/.sonar/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}/target/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}.zip" -d "$HOME/.sonar/"
+          echo "$(dirname "$(find "$HOME/.sonar" -maxdepth 3 -path '*/bin/sonar-scanner' -print -quit)")" >> "$GITHUB_PATH"
 
       - name: Download and set up build-wrapper
         env:
@@ -57,11 +63,6 @@ jobs:
           curl -sSLo "$HOME/.sonar/build-wrapper-linux-x86.zip" "${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}"
           unzip -o "$HOME/.sonar/build-wrapper-linux-x86.zip" -d "$HOME/.sonar/"
           echo "$HOME/.sonar/build-wrapper-linux-x86" >> "$GITHUB_PATH"
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake libcurl4-openssl-dev unzip
 
       - name: Configure project
         run: |

@@ -10,7 +10,7 @@ namespace ssllabs {
     static size_t writeCallback(char *buf, size_t size, size_t nmemb, void *up) {
         size_t realsize = size * nmemb;
 
-        std::string *mem = (std::string *) up;
+        auto *mem = static_cast<std::string *>(up);
         mem->append(buf);
 
         return realsize;
