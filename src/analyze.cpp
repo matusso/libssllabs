@@ -9,7 +9,7 @@
 
 namespace ssllabs {
 
-    int SSLlabs::analyze(const std::string domain, const std::string &data,
+    int SSLlabs::analyze(const std::string &domain, const std::string &data,
                          bool publish, bool startNew, bool fromCache, bool ignoreMismatch) {
         std::string command("/analyze?host=");
 
@@ -39,7 +39,7 @@ namespace ssllabs {
         return curl_read(command, data);
     }
 
-    int SSLlabs::analyze(const std::string domain, labsReport_t &report,
+    int SSLlabs::analyze(const std::string &domain, labsReport_t &report,
                          bool publish, bool startNew, bool fromCache, bool ignoreMismatch) {
         rapidjson::Document document;
         std::string command("/analyze?host=");

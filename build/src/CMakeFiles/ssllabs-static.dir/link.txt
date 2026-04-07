@@ -1,0 +1,2 @@
+/usr/bin/ar qc libssllabs.a "CMakeFiles/ssllabs-static.dir/ssllabs.cpp.o" "CMakeFiles/ssllabs-static.dir/getInfo.cpp.o" "CMakeFiles/ssllabs-static.dir/analyze.cpp.o" "CMakeFiles/ssllabs-static.dir/endpoint.cpp.o"
+/usr/bin/ranlib libssllabs.a
