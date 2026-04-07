@@ -16,9 +16,9 @@ jobs:
     permissions:
       contents: read
     env:
-      SONAR_SCANNER_VERSION: 4.6.1.2450
+      SONAR_SCANNER_VERSION: 8.0.1.6346
       SONAR_SERVER_URL: "https://sonarcloud.io"
-      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory
+      BUILD_WRAPPER_OUT_DIR: build/wrapper_output_directory
 
     steps:
       - name: Checkout repository
