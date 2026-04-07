@@ -2,12 +2,14 @@
 // Created by burso on 3/24/16.
 //
 
-#include <iostream>
+#include <ssllabs/ssllabs.h>
+
 #include "endpoint.h"
+#include "parsers.h"
 
 namespace ssllabs {
 
-    int SSLlabs::getEndpointData(const std::string &domain, const std::string &endpoint, const std::string &data) {
+    int SSLlabs::getEndpointData(const std::string &domain, const std::string &endpoint, std::string &data) {
         std::string command = {};
 
         command = "/getEndpointData?host=" + domain + "&s=" + endpoint;
@@ -16,22 +18,14 @@ namespace ssllabs {
 
     int SSLlabs::getEndpointData(const std::string &domain, const std::string &endpoint, labsEndpoint_t &data) {
         std::string command = {};
-        std::string json = {};
-        rapidjson::Document document;
+        std::string json;
 
         command = "/getEndpointData?host=" + domain + "&s=" + endpoint;
-        curl_read(command, json);
-
-        if (document.Parse<0>(json.c_str()).HasParseError()) {
-            std::cerr << "could not parse json document\n";
+        if (curl_read(command, json) != 0) {
             return -1;
         }
 
-        if (document.IsObject()) {
-            Endpoint::parseEndpointData(document.GetObject(), data);
-        }
-
-        return 0;
+        return detail::parseEndpointResponse(json, data);
     }
 
     void Endpoint::parseEndpointData(const rapidjson::GenericValue<rapidjson::UTF8<char>,
@@ -119,9 +113,8 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("protocols") && obj["protocols"].IsArray()) {
-            labsProtocol_t labsProtocol;
-
             for (auto itr = obj["protocols"].GetArray().Begin(); itr != obj["protocols"].GetArray().End(); itr++) {
+                labsProtocol_t labsProtocol = {};
                 parseProtocosls(itr->GetObject(), labsProtocol);
                 endpoint.Details.Protocols.push_back(labsProtocol);
             }
@@ -339,8 +332,8 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("list") && obj["list"].IsArray()) {
-            labsSuite_t labsSuite;
             for (auto itr = obj["list"].GetArray().Begin(); itr != obj["list"].GetArray().End(); itr++) {
+                labsSuite_t labsSuite = {};
                 parseSuitesList(itr->GetObject(), labsSuite);
                 labsSuites.List.push_back(labsSuite);
             }
@@ -476,9 +469,8 @@ namespace ssllabs {
         }
 
         if (obj.HasMember("certs") && obj["certs"].IsArray()) {
-            labsChainCert_t labsChainCert;
-
             for (auto itr = obj["certs"].GetArray().Begin(); itr != obj["certs"].GetArray().End(); itr++) {
+                labsChainCert_t labsChainCert = {};
                 parseChainCert(itr->GetObject(), labsChainCert);
                 labsChain.Certs.push_back(labsChainCert);
             }

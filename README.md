@@ -1,5 +1,5 @@
 # libssllabs
-[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/6uMc8po2vsZYfPzAnb7DdZ/qYT712W7VP1YRjJJFjtZU/tree/master.svg?style=svg&circle-token=dcd7191f1be2e55b4e0956661d1015f0a956341a)](https://dl.circleci.com/status-badge/redirect/circleci/6uMc8po2vsZYfPzAnb7DdZ/qYT712W7VP1YRjJJFjtZU/tree/master)
+[![CI](https://github.com/matusso/libssllabs/actions/workflows/ci.yml/badge.svg)](https://github.com/matusso/libssllabs/actions/workflows/ci.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=matusso_libssllabs&metric=alert_status)](https://sonarcloud.io/dashboard?id=matusso_libssllabs)
 <a href="https://scan.coverity.com/projects/matusso-libssllabs">
   <img alt="Coverity Scan Build Status"
@@ -14,8 +14,26 @@ Qualys SSL Labs: https://www.ssllabs.com/
 libssllabs communicates with SSLLabs via API <br>
 official documentation: https://github.com/ssllabs/ssllabs-scan/blob/stable/ssllabs-api-docs.md
 
-###### requirements
-need to install following libraries
+###### Requirements
+
+Need CMake 3.21+ and libcurl development headers:
+
+```bash
+apt-get install cmake libcurl4-openssl-dev
 ```
-~# apt-get install cmake libcurl4-openssl-dev
+
+Initialize the RapidJSON submodule before configuring:
+
+```bash
+git submodule update --init --recursive
 ```
+
+###### Build And Test
+
+```bash
+cmake -S . -B build -DSSLLABS_BUILD_TESTS=ON -DSSLLABS_BUILD_TOOLS=ON
+cmake --build build --parallel
+ctest --test-dir build --output-on-failure
+```
+
+Pull requests now run the same `ctest` suite in GitHub Actions.

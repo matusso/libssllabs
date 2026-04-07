@@ -3,7 +3,8 @@
 //
 
 #include <iostream>
-#include "../include/ssllabs/ssllabs.h"
+
+#include <ssllabs/ssllabs.h>
 
 namespace ssllabs {
     static size_t writeCallback(char *buf, size_t size, size_t nmemb, void *up) {
@@ -24,12 +25,12 @@ namespace ssllabs {
         curl_global_cleanup();
     }
 
-    int SSLlabs::getRootCertsRaw(const std::string &certs) {
+    int SSLlabs::getRootCertsRaw(std::string &certs) {
         curl_read("/getRootCertsRaw", certs);
         return 0;
     }
 
-    int SSLlabs::getStatusCodes(const std::string &codes) {
+    int SSLlabs::getStatusCodes(std::string &codes) {
         curl_read("/getStatusCodes", codes);
         return 0;
     }
@@ -40,7 +41,7 @@ namespace ssllabs {
         }
     }
 
-    int SSLlabs::curl_read(const std::string &command, const std::string &data) {
+    int SSLlabs::curl_read(const std::string &command, std::string &data) {
         CURLcode code(CURLE_OK);
         CURL *curl = curl_easy_init();
         std::string url(SSLLABS_API_URL);
@@ -51,7 +52,7 @@ namespace ssllabs {
             code = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &writeCallback);
             verifyCurlStatus(code);
 
-            code = curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *) &data);
+            code = curl_easy_setopt(curl, CURLOPT_WRITEDATA, &data);
             verifyCurlStatus(code);
 
             code = curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);

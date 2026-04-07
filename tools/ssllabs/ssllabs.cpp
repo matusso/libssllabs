@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
-#include "../../include/ssllabs/ssllabs.h"
+
+#include <ssllabs/ssllabs.h>
 
 using namespace ssllabs;
 

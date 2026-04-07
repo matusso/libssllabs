@@ -34,3 +34,4 @@ cmake-build-debug/
 # build libssllabs into /lib & .build/ directory
 lib/
 .build/
+build/
